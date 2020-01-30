@@ -1,0 +1,59 @@
+﻿@model CapStoneApp.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register With Vows";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="autoElement01 form-group" align="center">
+        <p class="headerText">Register Your Account</p>
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="autoElement01 form-group" align="center">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="autoElement01 form-group" align="center">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="autoElement01 form-group" align="center">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="autoElement01 form-group" align="center">
+        @Html.Label("Are you a", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @*@Html.DropDownList("Name")*@
+            @Html.DropDownList("Party", new List<SelectListItem> {
+                new SelectListItem { Text = "Democrat", Value = "Democrat" },
+                new SelectListItem { Text = "Republican", Value = "Republican" },
+                new SelectListItem { Text = "Other", Value = "Other" },
+                new SelectListItem { Text = "Prefered Not To Answer", Value = "Prefered Not To Answer" }
+            }, "--Choose Party Affiliation--")
+        </div>
+    </div>
+
+    <div class="selectorHorizontal form-group" align="center">
+        <span>
+            <input type="submit" class="possibleSelection" color="white" value="Complete Registration" />
+        </span>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
