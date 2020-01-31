@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CapStoneApp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CapStoneApp.Controllers
 {
@@ -17,7 +18,11 @@ namespace CapStoneApp.Controllers
         // GET: Fora
         public ActionResult Index()
         {
-            return View(db.Fora.ToList());
+            var id = User.Identity.GetUserId();
+            var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
+            var fora = db.Fora.Include(f => f.Client).Include(f=>f.Client.ApplicationUser);
+            ViewBag.UserId = userId;
+            return View(fora.ToList());
         }
 
         // GET: Fora/Details/5
@@ -50,6 +55,9 @@ namespace CapStoneApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var id = User.Identity.GetUserId();
+                var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
+                forum.ClientId = userId;
                 db.Fora.Add(forum);
                 db.SaveChanges();
                 return RedirectToAction("Index");

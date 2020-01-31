@@ -31,7 +31,6 @@ namespace CapStoneApp.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<ForumJunction> ForumJunctions { get; set; }
         public System.Data.Entity.DbSet<CapStoneApp.Models.Client> Clients { get; set; }
 
         public System.Data.Entity.DbSet<CapStoneApp.Models.Content> Contents { get; set; }

@@ -11,7 +11,9 @@ namespace CapStoneApp.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Affiliadated Party")]
         public string Party { get; set; }
+        public int CandidateId { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

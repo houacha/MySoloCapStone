@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CapStoneApp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CapStoneApp.Controllers
 {
@@ -15,9 +16,14 @@ namespace CapStoneApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contents
-        public ActionResult Index()
+        public ActionResult Index(int? forumId)
         {
-            return View(db.Contents.ToList());
+            var id = User.Identity.GetUserId();
+            var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
+            var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser);
+            ViewBag.Forum = forumId;
+            ViewBag.UserId = userId;
+            return View(contents.ToList());
         }
 
         // GET: Contents/Details/5
@@ -36,8 +42,9 @@ namespace CapStoneApp.Controllers
         }
 
         // GET: Contents/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            ViewBag.Forum = id;
             return View();
         }
 
@@ -50,11 +57,14 @@ namespace CapStoneApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var id = User.Identity.GetUserId();
+                var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
+                content.ClientId = userId;
                 db.Contents.Add(content);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index", content.ForumId);
             }
-
+            ViewBag.Forum = content.ForumId;
             return View(content);
         }
 
@@ -78,7 +88,7 @@ namespace CapStoneApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Content content)
+        public ActionResult Edit(Content content)
         {
             if (ModelState.IsValid)
             {

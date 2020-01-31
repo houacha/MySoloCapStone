@@ -37,8 +37,7 @@
     <div class="autoElement01 form-group" align="center">
         @Html.Label("Are you a", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @*@Html.DropDownList("Name")*@
-            @Html.DropDownList("Party", new List<SelectListItem> {
+            @Html.DropDownListFor(m => m.Party, new List<SelectListItem> {
                 new SelectListItem { Text = "Democrat", Value = "Democrat" },
                 new SelectListItem { Text = "Republican", Value = "Republican" },
                 new SelectListItem { Text = "Other", Value = "Other" },
