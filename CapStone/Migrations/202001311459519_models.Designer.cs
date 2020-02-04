@@ -13,7 +13,7 @@ namespace CapStone.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202001290357069_models"; }
+            get { return "202001311459519_models"; }
         }
         
         string IMigrationMetadata.Source

@@ -24,7 +24,7 @@
                     @if (User.IsInRole("Client") == true)
                     {
                         <li>@Html.ActionLink("Home", "Details", "Clients")</li>
-                        <li>@Html.ActionLink("Elections", "Index", "Clients")</li>
+                        <li>@Html.ActionLink("Elections", "ShowCandidate", "Clients")</li>
                         <li>@Html.ActionLink("Forums", "Index", "Fora")</li>
                     }
                     else if (User.IsInRole("Admim") == true)

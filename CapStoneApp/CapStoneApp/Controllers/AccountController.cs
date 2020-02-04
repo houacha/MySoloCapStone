@@ -170,7 +170,6 @@ namespace CapStoneApp.Controllers
                 if (result.Succeeded)
                 {
                     model.UserRoles = "Client";
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771    
                     // Send an email with this link    
@@ -182,6 +181,7 @@ namespace CapStoneApp.Controllers
                     var client = new Client() { Party = model.Party, ApplicationId = user.Id };
                     context.Clients.Add(client);
                     context.SaveChanges();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //Ends Here
                     return RedirectToAction("Index", "Home");
 

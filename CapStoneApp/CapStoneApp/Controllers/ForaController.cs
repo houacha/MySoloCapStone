@@ -20,7 +20,7 @@ namespace CapStoneApp.Controllers
         {
             var id = User.Identity.GetUserId();
             var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
-            var fora = db.Fora.Include(f => f.Client).Include(f=>f.Client.ApplicationUser);
+            var fora = db.Fora.Include(f => f.Client).Include(f => f.Client.ApplicationUser);
             ViewBag.UserId = userId;
             return View(fora.ToList());
         }

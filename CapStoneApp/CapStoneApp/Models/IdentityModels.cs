@@ -36,6 +36,5 @@ namespace CapStoneApp.Models
         public System.Data.Entity.DbSet<CapStoneApp.Models.Content> Contents { get; set; }
 
         public System.Data.Entity.DbSet<CapStoneApp.Models.Forum> Fora { get; set; }
-
     }
 }

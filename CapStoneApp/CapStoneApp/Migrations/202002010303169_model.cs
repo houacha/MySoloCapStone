@@ -3,7 +3,7 @@ namespace CapStoneApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class models : DbMigration
+    public partial class model : DbMigration
     {
         public override void Up()
         {

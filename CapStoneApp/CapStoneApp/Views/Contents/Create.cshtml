@@ -6,20 +6,16 @@
     ViewBag.Title = "Create";
 }
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Contents", new { ForumId = ViewBag.Forum }))
 {
     @Html.AntiForgeryToken()
-    {
-        var id = ViewBag.Forum;
-    }
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Message, new { @cols = "100", @rows = "4", @style = "width:100%;" })
                 @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,4 +26,17 @@
             </div>
         </div>
     </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+    $(function(){
+        $('.button').on("click", function(){
+            $.post('@Url.Action("Create")').always(function(){
+                $('.target').load('/Contents/Index');
+            })
+        });
+    });
+    </script>
 }

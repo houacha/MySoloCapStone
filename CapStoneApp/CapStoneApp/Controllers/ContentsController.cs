@@ -16,14 +16,50 @@ namespace CapStoneApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contents
-        public ActionResult Index(int? forumId)
+        public ActionResult Index(int? forumId, bool? isTrue, int? contentId)
         {
             var id = User.Identity.GetUserId();
             var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
-            var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser);
+            var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser).ToList();
             ViewBag.Forum = forumId;
+            ViewBag.Name = contents.First().Forum.Name;
             ViewBag.UserId = userId;
-            return View(contents.ToList());
+            if (isTrue != null)
+            {
+                ViewBag.IsTrue = true;
+                ViewBag.ContentId = contentId;
+            }
+            return View(contents);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(Content content, bool? isTrue)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = User.Identity.GetUserId();
+                var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
+                content.ClientId = userId;
+                db.Contents.Add(content);
+                db.SaveChanges();
+                var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser);
+                ViewBag.UserId = userId;
+                ViewBag.Name = contents.First().Forum.Name;
+                ViewBag.Forum = content.ForumId;
+                return View(contents);
+            }
+            ViewBag.Forum = content.ForumId;
+            return View(content);
+        }
+
+        public void ContentEdit(Content content)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(content).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         // GET: Contents/Details/5
@@ -46,26 +82,6 @@ namespace CapStoneApp.Controllers
         {
             ViewBag.Forum = id;
             return View();
-        }
-
-        // POST: Contents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Content content)
-        {
-            if (ModelState.IsValid)
-            {
-                var id = User.Identity.GetUserId();
-                var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
-                content.ClientId = userId;
-                db.Contents.Add(content);
-                db.SaveChanges();
-                //return RedirectToAction("Index", content.ForumId);
-            }
-            ViewBag.Forum = content.ForumId;
-            return View(content);
         }
 
         // GET: Contents/Edit/5
@@ -122,7 +138,7 @@ namespace CapStoneApp.Controllers
             Content content = db.Contents.Find(id);
             db.Contents.Remove(content);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { forumId = content.ForumId });
         }
 
         protected override void Dispose(bool disposing)
