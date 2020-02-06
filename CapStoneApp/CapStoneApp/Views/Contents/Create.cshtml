@@ -33,7 +33,7 @@
     <script type="text/javascript">
     $(function(){
         $('.button').on("click", function(){
-            $.post('@Url.Action("Create")').always(function(){
+            $.post('@Url.Action("Index")').always(function(){
                 $('.target').load('/Contents/Index');
             })
         });

@@ -20,7 +20,7 @@ namespace CapStoneApp.Controllers
         {
             var id = User.Identity.GetUserId();
             var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
-            var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser).ToList();
+            var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser).Where(c => c.ForumId == forumId).ToList();
             ViewBag.Forum = forumId;
             ViewBag.Name = contents.First().Forum.Name;
             ViewBag.UserId = userId;
@@ -34,20 +34,25 @@ namespace CapStoneApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Content content, bool? isTrue)
+        public ActionResult Index(Content content, int? id, string message)
         {
             if (ModelState.IsValid)
             {
-                var id = User.Identity.GetUserId();
-                var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
-                content.ClientId = userId;
-                db.Contents.Add(content);
-                db.SaveChanges();
-                var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser);
-                ViewBag.UserId = userId;
-                ViewBag.Name = contents.First().Forum.Name;
-                ViewBag.Forum = content.ForumId;
-                return View(contents);
+                var userId = User.Identity.GetUserId();
+                var clientId = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c.Id).SingleOrDefault();
+                if (message != null)
+                {
+                    var newContent = db.Contents.Where(c => c.Id == content.Id).SingleOrDefault();
+                    newContent.Message = message;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    content.ClientId = clientId;
+                    db.Contents.Add(content);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index", new { forumId = content.ForumId, contentId = content.Id });
             }
             ViewBag.Forum = content.ForumId;
             return View(content);
@@ -84,39 +89,8 @@ namespace CapStoneApp.Controllers
             return View();
         }
 
-        // GET: Contents/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Content content = db.Contents.Find(id);
-            if (content == null)
-            {
-                return HttpNotFound();
-            }
-            return View(content);
-        }
-
-        // POST: Contents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Content content)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(content).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(content);
-        }
-
         // GET: Contents/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? isTrue)
         {
             if (id == null)
             {
@@ -125,20 +99,14 @@ namespace CapStoneApp.Controllers
             Content content = db.Contents.Find(id);
             if (content == null)
             {
-                return HttpNotFound();
+                return View(content);
             }
-            return View(content);
-        }
-
-        // POST: Contents/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Content content = db.Contents.Find(id);
-            db.Contents.Remove(content);
-            db.SaveChanges();
-            return RedirectToAction("Index", new { forumId = content.ForumId });
+            else
+            {
+                db.Contents.Remove(content);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { forumId = content.ForumId, contentId = content.Id, isTrue });
+            }
         }
 
         protected override void Dispose(bool disposing)

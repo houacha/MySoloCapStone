@@ -17,5 +17,9 @@ namespace CapStoneApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_EndRequest()
+        {   //here breakpoint
+            // under debug mode you can find the exceptions at code: this.Context.AllErrors
+        }
     }
 }

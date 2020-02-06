@@ -6,55 +6,62 @@
 
 <h2>@ViewBag.Name</h2>
 
-<table class="table">
-    <tr>
-        <th style="width:10%">
-            @Html.DisplayNameFor(model => model.Client.ApplicationUser.UserName)
-        </th>
-        <th width="80%">
-            @Html.DisplayNameFor(model => model.Message)
-        </th>
-        <th></th>
-    </tr>
+<form id="contentForm" action="~/Contents/Index" method="post">
 
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            @if (ViewBag.ContentId == item.Id)
-            {
-                <td style="border:inset 2px">
-                    @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
-                </td>
-                <td style="border:inset 2px">
-                    @Html.TextBoxFor(modelItem => item.Message)
-                </td>
-                <td style="background-color:lightgrey">
-                    @if (ViewBag.UserId == item.ClientId || User.IsInRole("Admin") == true)
-                    {
-                        @Html.ActionLink("Edit", "Index", new { id = item.Id, isTrue = true })<text> |</text>
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id, isTrue = true })
-                    }
-                </td>
-            }
-            @if (ViewBag.IsTrue == null || ViewBag.ContentId != item.Id)
-            {
-                <td style="border:inset 2px">
-                    @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
-                </td>
-                <td style="border:inset 2px">
-                    @Html.DisplayFor(modelItem => item.Message)
-                </td>
-                <td style="background-color:lightgrey">
-                    @if (ViewBag.UserId == item.ClientId || User.IsInRole("Admin") == true)
-                    {
-                        @Html.ActionLink("Edit", "Index", new {  forumId = ViewBag.Forum, contentId = item.Id, isTrue = true })<text> |</text>
-                        @Html.ActionLink("Delete", "Delete", new {  forumId = ViewBag.Forum, contentId = item.Id, isTrue = true })
-                    }
-                </td>
-            }
+            <th style="width:10%">
+                @Html.DisplayNameFor(model => model.Client.ApplicationUser.UserName)
+            </th>
+            <th width="80%">
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (ViewBag.ContentId == item.Id)
+                {
+                    @Html.HiddenFor(model => item.Id, new { @id = "contentId" })
+                    @Html.HiddenFor(model => item.ClientId, new { @id = "clientId" })
+                    @Html.HiddenFor(model => item.ForumId, new { @id = "forumId" })
+                    <td style="border:inset 2px">
+                        @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
+                    </td>
+                    <td style="border:inset 2px">
+                        <span>
+                            @Html.DisplayFor(modelItem => item.Message, "displayMessage", "displayMessage")
+                        </span>
+                        @Html.TextAreaFor(modelItem => item.Message, new { @cols = "100", @rows = "2", @style = "width:100%;", @id = "editMessage" })
+                    </td>
+                    <td style="background-color:lightgrey">
+                        <a class="Update" href="javascript:;">Update</a>
+                        @Html.ActionLink("Edit", "Index", new { forumId = ViewBag.Forum, contentId = item.Id, isTrue = true, edit = true }, new { @class = "Edit" }) |
+                        @Html.ActionLink("Delete", "Delete", new { forumId = ViewBag.Forum, id = item.Id, isTrue = true }, new { @class = "Delete" })
+                    </td>
+                }
+                @if (ViewBag.IsTrue == null || ViewBag.ContentId != item.Id)
+                {
+                    <td style="border:inset 2px">
+                        @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
+                    </td>
+                    <td style="border:inset 2px">
+                        @Html.DisplayFor(modelItem => item.Message, "displayMessage", "displayMessage")
+                    </td>
+                    <td style="background-color:lightgrey">
+                        @if (ViewBag.UserId == item.ClientId || User.IsInRole("Admin") == true)
+                        {
+                            @Html.ActionLink("Edit", "Index", new { forumId = ViewBag.Forum, contentId = item.Id, isTrue = true, edit = true }) <text>|</text>
+                            @Html.ActionLink("Delete", "Delete", new { forumId = ViewBag.Forum, id = item.Id, isTrue = true })
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</form>
 
 <p>
     @{
@@ -62,3 +69,35 @@
     }
 </p>
 
+@section scripts
+{
+    <script type="text/javascript">
+        $("body").on("click", "table .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("textarea").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("textarea");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Update").hide();
+            $(this).hide();
+            var form = $("#contentForm");
+            var url = form.attr("action");
+            var content = {
+                Id: $("#contentId").val(),
+                Message: $("#editMessage").val(),
+                ClientId: $("#clientId").val(),
+                ForumId: $("#forumId").val(),
+                __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+            };
+
+            $.post(url, content, function (data, status, jqXHR) { }, "json")
+        });
+    </script>
+}
