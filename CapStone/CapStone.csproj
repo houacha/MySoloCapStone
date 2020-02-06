@@ -233,6 +233,10 @@
     <Compile Include="Migrations\202002041338590_new props on candidate.Designer.cs">
       <DependentUpon>202002041338590_new props on candidate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002061432431_new prop.cs" />
+    <Compile Include="Migrations\202002061432431_new prop.Designer.cs">
+      <DependentUpon>202002061432431_new prop.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -346,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002041338590_new props on candidate.resx">
       <DependentUpon>202002041338590_new props on candidate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002061432431_new prop.resx">
+      <DependentUpon>202002061432431_new prop.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

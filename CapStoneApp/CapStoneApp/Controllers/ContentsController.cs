@@ -58,15 +58,6 @@ namespace CapStoneApp.Controllers
             return View(content);
         }
 
-        public void ContentEdit(Content content)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(content).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-        }
-
         // GET: Contents/Details/5
         public ActionResult Details(int? id)
         {

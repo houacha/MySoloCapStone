@@ -38,7 +38,7 @@
             @if (ViewBag.UserId == item.ClientId || User.IsInRole("Admin") == true)
             {
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })<text>|</text>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })<text> |</text>
                     @*@Html.ActionLink("Details", "Details", new { id = item.Id })<text>|</text>*@
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>

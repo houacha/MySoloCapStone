@@ -31,15 +31,19 @@
                         @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
                     </td>
                     <td style="border:inset 2px">
-                        <span>
-                            @Html.DisplayFor(modelItem => item.Message, "displayMessage", "displayMessage")
+                        <span id="message">
+                            @Html.DisplayFor(modelItem => item.Message)
                         </span>
-                        @Html.TextAreaFor(modelItem => item.Message, new { @cols = "100", @rows = "2", @style = "width:100%;", @id = "editMessage" })
+                        <div>
+                            @Html.TextAreaFor(modelItem => item.Message, new { @cols = "100", @rows = "2", @style = "width:100%;", @id = "editMessage" })
+                        </div>
                     </td>
                     <td style="background-color:lightgrey">
                         <a class="Update" href="javascript:;">Update</a>
-                        @Html.ActionLink("Edit", "Index", new { forumId = ViewBag.Forum, contentId = item.Id, isTrue = true, edit = true }, new { @class = "Edit" }) |
-                        @Html.ActionLink("Delete", "Delete", new { forumId = ViewBag.Forum, id = item.Id, isTrue = true }, new { @class = "Delete" })
+                        <div>
+                            @Html.ActionLink("Edit", "Index", new { forumId = ViewBag.Forum, contentId = item.Id, isTrue = true, edit = true }, new { @class = "Edit" })<text> |</text>
+                            @Html.ActionLink("Delete", "Delete", new { forumId = ViewBag.Forum, id = item.Id, isTrue = true }, new { @class = "Delete" })
+                        </div>
                     </td>
                 }
                 @if (ViewBag.IsTrue == null || ViewBag.ContentId != item.Id)
@@ -48,7 +52,7 @@
                         @Html.DisplayFor(modelItem => item.Client.ApplicationUser.UserName)
                     </td>
                     <td style="border:inset 2px">
-                        @Html.DisplayFor(modelItem => item.Message, "displayMessage", "displayMessage")
+                        @Html.DisplayFor(modelItem => item.Message)
                     </td>
                     <td style="background-color:lightgrey">
                         @if (ViewBag.UserId == item.ClientId || User.IsInRole("Admin") == true)
@@ -72,6 +76,18 @@
 @section scripts
 {
     <script type="text/javascript">
+        $("body").on("click", "#table .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($("#message").val().length > 0) {
+                    $(this).find("textarea").show();
+                    $("#message").hide();
+                }
+            });
+            $(".Delete").hide();
+            $(".Edit").hide()
+        });
+
         $("body").on("click", "table .Update", function () {
             var row = $(this).closest("tr");
             $("td", row).each(function () {

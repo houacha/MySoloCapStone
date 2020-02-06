@@ -47,7 +47,7 @@ namespace CapStone.Migrations
                     Education = "Brooklyn College\nBA, University of Chicago",
                     Party = "Independent/Democratic",
                     Description = "On September 8, 1941 Bernie Sanders was born to  Elias Ben Yehuda Sanders and  Dorothy Sanders, in Brooklyn, NY. From an early life, Sanders always were interested in politics." +
-                    "He attended Brooklyn College then went on to graduate from the University of Chicago. He was an active protest organizer for the Congress of Racial Equality and the Student Nonviolent Coordination Committee." + 
+                    "He attended Brooklyn College then went on to graduate from the University of Chicago. He was an active protest organizer for the Congress of Racial Equality and the Student Nonviolent Coordination Committee." +
                     "In 1981, Sanders was elected mayor of Burlington and was reelected three times after. He won House seat in 1990 representing Vermont's at-large congressional district, serving for 16 years before being elected U.S. Senator." +
                     "Sanders have been known for his opposition towards economic inequality. He has supported labor rights, universal and single-payer healthcare, paid parental leave, tuition-free tertiary education" +
                     ", and a program that would create jobs addressing climate change known as the Green New Deal. He supports reducing military spending in favor of pursuing more diplomatic and international cooperation," +

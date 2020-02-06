@@ -24,15 +24,58 @@ namespace CapStoneApp.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var clients = db.Clients.ToList();
+            return View(clients);
         }
 
-        public ActionResult ShowCandidate()
+        public ActionResult ShowCandidate(int? id, string type)
         {
-            var candidates = GetCandidates();
-            return View(candidates);
+            List<ApiViewModel> list = null;
+            switch (type)
+            {
+                case "candidate":
+                    list = GetCandidates();
+                    break;
+                case "policy":
+                    list = GetPolicies();
+                    list = list.Where(p => p.CandidateId == id).ToList();
+                    break;
+                case "ad":
+                    list = GetAds();
+                    list = list.Where(a => a.CandidateId == id).ToList();
+                    break;
+                case "theme":
+                    list = GetCampaignTheme();
+                    list = list.Where(t => t.CandidateId == id).ToList();
+                    break;
+                case "finance":
+                    list = GetFinances();
+                    list = list.Where(f => f.CandidateId == id).ToList();
+                    break;
+                case "staff":
+                    list = GetStaff();
+                    list = list.Where(s => s.CandidateId == id).ToList();
+                    break;
+                case "endorsement":
+                    list = GetEndorsements();
+                    list = list.Where(e => e.CandidateId == id).ToList();
+                    break;
+                default:
+                    break;
+            }
+            return View(list);
         }
 
+        public ActionResult CandidatesDetails(int? id)
+        {
+            ApiViewModel api = null;
+            List<ApiViewModel> list = null;
+            list = GetCandidates();
+            api = list.Where(c => c.Id == id).SingleOrDefault();
+            return View(api);
+        }
+
+        #region API Get Methods
         public List<ApiViewModel> GetCandidates()
         {
             List<ApiViewModel> candidates = new List<ApiViewModel>();
@@ -51,7 +94,16 @@ namespace CapStoneApp.Controllers
                         Id = (int)item["Id"],
                         Name = (string)item["Name"],
                         Description = (string)item["Description"],
-                        Bio = (string)item["Bio"],
+                        Gender = (string)item["Gender"],
+                        Occupation = (string)item["Occupation"],
+                        Birthdate = (string)item["Birthdate"],
+                        BirthPlace = (string)item["BirthPlace"],
+                        Hometown = (string)item["Hometown"],
+                        Religion = (string)item["Religion"],
+                        MaritalStatus = (string)item["MaritalStatus"],
+                        Children = (string)item["Children"],
+                        Education = (string)item["Education"],
+                        Polling = (double?)item["Polling"],
                         Party = (string)item["Party"]
                     };
                     candidates.Add(candidate);
@@ -192,7 +244,7 @@ namespace CapStoneApp.Controllers
             return ads;
         }
 
-        public void GetEndorsements()
+        public List<ApiViewModel> GetEndorsements()
         {
             List<ApiViewModel> endorsements = new List<ApiViewModel>();
             var response = client.GetAsync("Candidates");
@@ -215,14 +267,17 @@ namespace CapStoneApp.Controllers
                     endorsements.Add(endorsement);
                 }
             }
+            return endorsements;
         }
+        #endregion
 
         public ActionResult Details(int? id, bool delete)
         {
             Client user = null;
             if (id == null)
             {
-                user = db.Clients.Where(c => c.ApplicationId == User.Identity.GetUserId()).Select(c => c).SingleOrDefault();
+                var userId = User.Identity.GetUserId();
+                user = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
             }
             else
             {

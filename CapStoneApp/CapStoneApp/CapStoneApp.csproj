@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202002041639143_new things.Designer.cs">
       <DependentUpon>202002041639143_new things.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002061431206_new properties on view model.cs" />
+    <Compile Include="Migrations\202002061431206_new properties on view model.Designer.cs">
+      <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiViewModel.cs" />
@@ -280,10 +284,10 @@
     <Content Include="Views\Fora\Index.cshtml" />
     <Content Include="Views\Contents\Delete.cshtml" />
     <Content Include="Views\Contents\Details.cshtml" />
-    <Content Include="Views\Contents\Edit.cshtml" />
     <Content Include="Views\Contents\Index.cshtml" />
     <Content Include="Views\Contents\Create.cshtml" />
     <Content Include="Views\Clients\ShowCandidate.cshtml" />
+    <Content Include="Views\Clients\CandidatesDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002041639143_new things.resx">
       <DependentUpon>202002041639143_new things.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002061431206_new properties on view model.resx">
+      <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

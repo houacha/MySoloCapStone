@@ -21,6 +21,7 @@ namespace CapStone.Models
         public string MaritalStatus { get; set; }
         public string Children { get; set; }
         public string Education { get; set; }
+        public double Polling { get; set; }
         public string Party { get; set; }
     }
 }
