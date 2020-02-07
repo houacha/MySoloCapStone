@@ -206,6 +206,10 @@
     <Compile Include="Migrations\202002061431206_new properties on view model.Designer.cs">
       <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002070701015_update props of client.cs" />
+    <Compile Include="Migrations\202002070701015_update props of client.Designer.cs">
+      <DependentUpon>202002070701015_update props of client.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiViewModel.cs" />
@@ -229,6 +233,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -317,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002061431206_new properties on view model.resx">
       <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002070701015_update props of client.resx">
+      <DependentUpon>202002070701015_update props of client.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

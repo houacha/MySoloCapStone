@@ -4,11 +4,45 @@
     ViewBag.Title = "CandidatesDetails";
 }
 
+<style>
+    .fa {
+        font-size: 25px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+        .fa:hover {
+            color: darkblue;
+        }
+</style>
+
 <h2>Personal Details</h2>
 
 <div>
     <h4>@Model.Name</h4>
     <hr />
+    @if (ViewBag.Liked != null)
+    {
+        <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up" style="color:blue"></span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+    }
+    else if (ViewBag.Dislike != null)
+    {
+        <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down" style="color:blue"></span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+    }
+    else
+    {
+        <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+    }
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -117,5 +151,106 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Policies", "ShowCandidate", new { id = Model.Id, type = "policy" }) |
+    @Html.ActionLink("Campaign Theme", "ShowCandidate", new { id = Model.Id, type = "theme" }) |
+    @Html.ActionLink("Endorsements", "ShowCandidate", new { id = Model.Id, type = "endorsement" }) |
+    @Html.ActionLink("Campaign Staffs", "ShowCandidate", new { id = Model.Id, type = "staff" }) |
+    @Html.ActionLink("Finances", "ShowCandidate", new { id = Model.Id, type = "finance" }) |
+    @Html.ActionLink("Campaign Ads", "ShowCandidate", new { id = Model.Id, type = "ad" }) |
+    @Html.ActionLink("Back", "ShowCandidate", new { type = "candidate" })
 </p>
+
+<script>
+    function like(id) {
+        var candidate;
+        if (document.getElementById("up").style.color == "blue") {
+            document.getElementById("up").style.color = "black";
+            candidate = {
+                Id: id,
+                Name: "@Model.Name",
+                Type: "like",
+                Method: "remove",
+                __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+            };
+        }
+        else {
+            if (document.getElementById("down").style.color == "blue") {
+                document.getElementById("up").style.color = "blue";
+                document.getElementById("down").style.color = "black";
+                candidate = {
+                    Id: id,
+                    Name: "@Model.Name",
+                    Type: "like",
+                    Method: "add",
+                    WasTrue: "yes",
+                    __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+                };
+            }
+            else {
+                document.getElementById("up").style.color = "blue";
+                candidate = {
+                    Id: id,
+                    Name: "@Model.Name",
+                    Type: "like",
+                    Method: "add",
+                    __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+                };
+            }
+        }
+        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) {}, "json")
+    }
+
+    function dislike(id) {
+        var candidate;
+        if (document.getElementById("down").style.color == "blue") {
+            document.getElementById("down").style.color = "black";
+            candidate = {
+                Id: id,
+                Name: "@Model.Name",
+                Type: "dislike",
+                Method: "remove",
+                __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+            };
+        }
+        else {
+            if (document.getElementById("up").style.color == "blue") {
+                document.getElementById("up").style.color = "black";
+                document.getElementById("down").style.color = "blue";
+                candidate = {
+                    Id: id,
+                    Name: "@Model.Name",
+                    Type: "dislike",
+                    Method: "add",
+                    WasTrue: "yes",
+                    __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+                };
+            }
+            else {
+                document.getElementById("down").style.color = "blue";
+                candidate = {
+                    Id: id,
+                    Name: "@Model.Name",
+                    Type: "dislike",
+                    Method: "add",
+                    __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val()
+                };
+            }
+        }
+        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) {}, "json")
+    }
+
+
+</script>
+
+@*@section scripts
+    {
+        <script type="text/javascript">
+            $(function () {
+                $('.fa').on("click", function () {
+                    $.post('@Url.Action("CandidatesDetails")').always(function () {
+                        $('.target').load('/Clients/CandidatesDetails');
+                    })
+                });
+            });
+        </script>
+    }*@

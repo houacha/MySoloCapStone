@@ -15,40 +15,10 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Occupation)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Party)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Birthdate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BirthPlace)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Gender)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hometown)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Religion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MaritalStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Children)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Education)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Polling)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th></th>
             </tr>
@@ -56,46 +26,16 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.DisplayFor(model => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.Occupation)
+                        @Html.DisplayFor(model => item.Party)
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.Party)
+                        @Html.DisplayFor(model => item.Polling)
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.Birthdate)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.BirthPlace)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Gender)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Hometown)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Religion)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.MaritalStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Children)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Education)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Polling)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        @Html.ActionLink("Details", "CandidatesDetails", new { id = item.Id })
                     </td>
                 </tr>
             }

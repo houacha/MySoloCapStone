@@ -30,35 +30,45 @@ namespace CapStoneApp.Controllers
 
         public ActionResult ShowCandidate(int? id, string type)
         {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            ViewBag.ClientCandidate = client.CandidateName;
             List<ApiViewModel> list = null;
             switch (type)
             {
                 case "candidate":
                     list = GetCandidates();
+                    ViewBag.Info = "Candidate";
                     break;
                 case "policy":
                     list = GetPolicies();
                     list = list.Where(p => p.CandidateId == id).ToList();
+                    ViewBag.Info = "Policy";
                     break;
                 case "ad":
                     list = GetAds();
                     list = list.Where(a => a.CandidateId == id).ToList();
+                    ViewBag.Info = "Ad";
                     break;
                 case "theme":
                     list = GetCampaignTheme();
                     list = list.Where(t => t.CandidateId == id).ToList();
+                    ViewBag.Info = "Theme";
                     break;
                 case "finance":
                     list = GetFinances();
                     list = list.Where(f => f.CandidateId == id).ToList();
+                    ViewBag.Info = "Finance";
                     break;
                 case "staff":
                     list = GetStaff();
                     list = list.Where(s => s.CandidateId == id).ToList();
+                    ViewBag.Info = "Staff";
                     break;
                 case "endorsement":
                     list = GetEndorsements();
                     list = list.Where(e => e.CandidateId == id).ToList();
+                    ViewBag.Info = "Endorsement";
                     break;
                 default:
                     break;
@@ -68,11 +78,75 @@ namespace CapStoneApp.Controllers
 
         public ActionResult CandidatesDetails(int? id)
         {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            ViewBag.Liked = client.CandidateId;
             ApiViewModel api = null;
             List<ApiViewModel> list = null;
             list = GetCandidates();
             api = list.Where(c => c.Id == id).SingleOrDefault();
             return View(api);
+        }
+
+        [HttpPost]
+        public ActionResult CandidatesDetails(int? id, string method, string type, string wasTrue)
+        {
+            switch (type)
+            {
+                case "like":
+                    Like(id, method, wasTrue);
+                    break;
+                case "dislike":
+                    Dislike(id, method, wasTrue);
+                    break;
+                default:
+                    break;
+            }
+            return RedirectToAction("CandidatesDetails", new { id });
+        }
+
+        public void Like(int? id, string method, string wasTrue) 
+        {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            switch (method)
+            {
+                case "add":
+                    if (wasTrue == "yes")
+                    {
+                        Dislike(id, "remove", null);
+                    }
+                    client.CandidateId = id;
+                    break;
+                case "remove":
+                    client.CandidateId = null;
+                    break;
+                default:
+                    break;
+            }
+            db.SaveChanges();
+        }
+
+        public void Dislike(int? id, string method, string wasTrue)
+        {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            switch (method)
+            {
+                case "add":
+                    if (wasTrue == "yes")
+                    {
+                        Like(id, "remove", null);
+                    }
+                    client.DislikeId = id;
+                    break;
+                case "remove":
+                    client.DislikeId = null;
+                    break;
+                default:
+                    break;
+            }
+            db.SaveChanges();
         }
 
         #region API Get Methods
@@ -115,7 +189,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetPolicies()
         {
             List<ApiViewModel> policies = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("Policies");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -141,7 +215,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetCampaignTheme()
         {
             List<ApiViewModel> themes = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("CampaignThemes");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -169,7 +243,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetFinances()
         {
             List<ApiViewModel> finances = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("CampaignFinances");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -195,7 +269,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetStaff()
         {
             List<ApiViewModel> staffs = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("CampaignStaffs");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -222,7 +296,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetAds()
         {
             List<ApiViewModel> ads = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("Ads");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -247,7 +321,7 @@ namespace CapStoneApp.Controllers
         public List<ApiViewModel> GetEndorsements()
         {
             List<ApiViewModel> endorsements = new List<ApiViewModel>();
-            var response = client.GetAsync("Candidates");
+            var response = client.GetAsync("Endorsements");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)

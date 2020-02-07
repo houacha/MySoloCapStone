@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,7 +24,7 @@
                     @if (User.IsInRole("Client") == true)
                     {
                         <li>@Html.ActionLink("Home", "Details", "Clients")</li>
-                        <li>@Html.ActionLink("Elections", "ShowCandidate", "Clients")</li>
+                        <li>@Html.ActionLink("Elections", "ShowCandidate", "Clients", new { type = "candidate" }, "")</li>
                         <li>@Html.ActionLink("Forums", "Index", "Fora")</li>
                     }
                     else if (User.IsInRole("Admim") == true)
@@ -52,6 +52,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/canvas")
     @RenderSection("scripts", required: false)
 </body>
 </html>
