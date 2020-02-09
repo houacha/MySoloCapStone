@@ -91,6 +91,20 @@ namespace CapStoneApp.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(forum).State = EntityState.Modified;
+                var contents = db.Contents.Where(c => c.ForumId == forum.Id).Select(c => c).ToList();
+                List<Client> checkedClient = new List<Client>();
+                foreach (var item in contents)
+                {
+                    var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                    if (!checkedClient.Contains(client))
+                    {
+                        InboxMessege messege = new InboxMessege();
+                        messege.Messege = "The forum '" + forum.Name + "' has been altered.";
+                        messege.InboxId = client.InboxId;
+                        db.InboxMesseges.Add(messege);
+                        checkedClient.Add(client);
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -118,6 +132,21 @@ namespace CapStoneApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Forum forum = db.Fora.Find(id);
+            var contents = db.Contents.Where(c => c.ForumId == id).Select(c => c).ToList();
+            List<Client> checkedClient = new List<Client>();
+            foreach (var item in contents)
+            {
+                var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                if (!checkedClient.Contains(client))
+                {
+                    InboxMessege messege = new InboxMessege();
+                    messege.Messege = "The forum '" + forum.Name + "' and all its contents has been deleted.";
+                    messege.InboxId = client.InboxId;
+                    db.InboxMesseges.Add(messege);
+                    checkedClient.Add(client);
+                }
+                db.Contents.Remove(item);
+            }
             db.Fora.Remove(forum);
             db.SaveChanges();
             return RedirectToAction("Index");

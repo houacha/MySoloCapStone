@@ -20,5 +20,8 @@ namespace CapStoneApp.Models
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("Inbox")]
+        public int InboxId { get; set; }
+        public Inbox Inbox { get; set; }
     }
 }

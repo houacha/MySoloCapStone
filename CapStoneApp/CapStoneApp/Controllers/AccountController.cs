@@ -178,13 +178,16 @@ namespace CapStoneApp.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");    
                     //Assign Role to user Here       
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    var client = new Client() { Party = model.Party, ApplicationId = user.Id };
+                    var inbox = new Inbox();
+                    context.Inboxes.Add(inbox);
+                    await context.SaveChangesAsync();
+                    var thisInbox = context.Inboxes.Select(i => i).Last();
+                    var client = new Client() { Party = model.Party, ApplicationId = user.Id, InboxId =  thisInbox.Id};
                     context.Clients.Add(client);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //Ends Here
                     return RedirectToAction("Index", "Home");
-
                 }
                 AddErrors(result);
             }

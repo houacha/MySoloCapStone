@@ -37,6 +37,12 @@
                     <td>
                         @Html.ActionLink("Details", "CandidatesDetails", new { id = item.Id })
                     </td>
+                    @if (ViewBag.Like == item.Id)
+                    {
+                        <td>
+                            <i class="fa fa-star" style="color:goldenrod"></i>
+                        </td>
+                    }
                 </tr>
             }
             break;

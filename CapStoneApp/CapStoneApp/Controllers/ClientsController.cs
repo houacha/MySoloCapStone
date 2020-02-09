@@ -28,6 +28,15 @@ namespace CapStoneApp.Controllers
             return View(clients);
         }
 
+        public ActionResult Inbox()
+        {
+            var userId = User.Identity.GetUserId();
+            var clientInbox = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c.InboxId).SingleOrDefault();
+            var inbox = db.Inboxes.Where(i => i.Id == clientInbox).Select(i => i).SingleOrDefault();
+            var messeges = db.InboxMesseges.Where(m => m.InboxId == inbox.Id).Select(m => m).ToList();
+            return View(messeges);
+        }
+
         public ActionResult ShowCandidate(int? id, string type)
         {
             var userId = User.Identity.GetUserId();
@@ -38,6 +47,7 @@ namespace CapStoneApp.Controllers
             {
                 case "candidate":
                     list = GetCandidates();
+                    ViewBag.Like = client.CandidateId;
                     ViewBag.Info = "Candidate";
                     break;
                 case "policy":
@@ -80,9 +90,18 @@ namespace CapStoneApp.Controllers
         {
             var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
-            ViewBag.Liked = client.CandidateId;
             ApiViewModel api = null;
             List<ApiViewModel> list = null;
+            if (client.CandidateId == id)
+            {
+                ViewBag.Liked = client.CandidateId;
+            }
+            else if (client.DislikeId == id)
+            {
+                ViewBag.Dislike = client.DislikeId;
+            }
+            ViewBag.Likes = FindLikes(id);
+            ViewBag.Dislikes = FindDislikes(id);
             list = GetCandidates();
             api = list.Where(c => c.Id == id).SingleOrDefault();
             return View(api);
@@ -103,6 +122,29 @@ namespace CapStoneApp.Controllers
                     break;
             }
             return RedirectToAction("CandidatesDetails", new { id });
+        }
+
+        public ActionResult Vote()
+        {
+            return View();
+        }
+
+        public int FindLikes(int? id)
+        {
+            int percentage;
+            var clients = db.Clients.Select(c => c).Count();
+            var likes = db.Clients.Where(c => c.CandidateId == id).Select(c => c).Count();
+            percentage = (likes / clients) * 100;
+            return percentage;
+        }
+
+        public int FindDislikes(int? id)
+        {
+            int percentage;
+            var clients = db.Clients.Select(c => c).Count();
+            var likes = db.Clients.Where(c => c.DislikeId == id).Select(c => c).Count();
+            percentage = (likes / clients) * 100;
+            return percentage;
         }
 
         public void Like(int? id, string method, string wasTrue) 
@@ -373,6 +415,26 @@ namespace CapStoneApp.Controllers
         {
             var client = db.Clients.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
             var user = db.Users.Where(u => u.Id == client.ApplicationId).Select(u => u).SingleOrDefault();
+            var forums = db.Fora.Where(f => f.ClientId == client.Id).Select(f => f).ToList();
+            foreach (var item in forums)
+            {
+                var contents = db.Contents.Where(c => c.ForumId == item.Id).Select(c => c).ToList();
+                List<Client> checkedClient = new List<Client>();
+                foreach (var content in contents)
+                {
+                    var contentclient = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                    if (!checkedClient.Contains(contentclient))
+                    {
+                        InboxMessege messege = new InboxMessege();
+                        messege.Messege = "The forum '" + item.Name + "' and all its contents has been deleted.";
+                        messege.InboxId = contentclient.InboxId;
+                        db.InboxMesseges.Add(messege);
+                        checkedClient.Add(contentclient);
+                    }
+                    db.Contents.Remove(content);
+                }
+                db.Fora.Remove(item);
+            }
             db.Users.Remove(user);
             db.Clients.Remove(client);
             db.SaveChanges();

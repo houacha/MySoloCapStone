@@ -34,22 +34,49 @@ namespace CapStoneApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Content content, int? id, string message)
+        public ActionResult Index(Content content, string IsCreate, string message)
         {
             if (ModelState.IsValid)
             {
                 var userId = User.Identity.GetUserId();
                 var clientId = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c.Id).SingleOrDefault();
-                if (message != null)
+                var forum = db.Fora.Where(f => f.Id == content.ForumId).Select(f => f).SingleOrDefault();
+                var contents = db.Contents.Where(c => c.ForumId == forum.Id).Select(c => c).ToList();
+                List<Client> checkedClient = new List<Client>();
+                if (message != null && IsCreate != "yes")
                 {
                     var newContent = db.Contents.Where(c => c.Id == content.Id).SingleOrDefault();
                     newContent.Message = message;
+                    foreach (var item in contents)
+                    {
+                        var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                        if (!checkedClient.Contains(client) && client.Id != clientId)
+                        {
+                            InboxMessege messege = new InboxMessege();
+                            messege.Messege = "A message has been edited from '" + forum.Name + "'.";
+                            messege.InboxId = client.InboxId;
+                            db.InboxMesseges.Add(messege);
+                            checkedClient.Add(client);
+                        }
+                    }
                     db.SaveChanges();
                 }
                 else
                 {
                     content.ClientId = clientId;
                     db.Contents.Add(content);
+                    foreach (var item in contents)
+                    {
+                        var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                        if (!checkedClient.Contains(client) && client.Id != clientId)
+                        {
+                            InboxMessege messege = new InboxMessege();
+                            messege.Messege = "A message has been added to '" + forum.Name + "'.";
+                            messege.InboxId = client.InboxId;
+                            db.InboxMesseges.Add(messege);
+                            checkedClient.Add(client);
+                        }
+                    }
                     db.SaveChanges();
                 }
                 return RedirectToAction("Index", new { forumId = content.ForumId, contentId = content.Id });
@@ -94,7 +121,22 @@ namespace CapStoneApp.Controllers
             }
             else
             {
+                var forum = db.Fora.Where(f => f.Id == content.ForumId).Select(f => f).SingleOrDefault();
                 db.Contents.Remove(content);
+                var contents = db.Contents.Where(c => c.ForumId == forum.Id).Select(c => c).ToList();
+                List<Client> checkedClient = new List<Client>();
+                foreach (var item in contents)
+                {
+                    var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                    if (!checkedClient.Contains(client) && client.Id != content.ClientId)
+                    {
+                        InboxMessege messege = new InboxMessege();
+                        messege.Messege = "A message has been deleted from '" + forum.Name + "'.";
+                        messege.InboxId = client.InboxId;
+                        db.InboxMesseges.Add(messege);
+                        checkedClient.Add(client);
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index", new { forumId = content.ForumId, contentId = content.Id, isTrue });
             }

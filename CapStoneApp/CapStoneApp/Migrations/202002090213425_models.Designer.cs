@@ -7,13 +7,13 @@ namespace CapStoneApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updatepropsofclient : IMigrationMetadata
+    public sealed partial class models : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updatepropsofclient));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(models));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002070701015_update props of client"; }
+            get { return "202002090213425_models"; }
         }
         
         string IMigrationMetadata.Source

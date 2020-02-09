@@ -25,6 +25,8 @@
                     {
                         <li>@Html.ActionLink("Home", "Details", "Clients")</li>
                         <li>@Html.ActionLink("Elections", "ShowCandidate", "Clients", new { type = "candidate" }, "")</li>
+                        <li>@Html.ActionLink("Mock Election", "Vote", "Clients")</li>
+                        <li>@Html.ActionLink("Inbox", "Inbox", "Clients")</li>
                         <li>@Html.ActionLink("Forums", "Index", "Fora")</li>
                     }
                     else if (User.IsInRole("Admim") == true)

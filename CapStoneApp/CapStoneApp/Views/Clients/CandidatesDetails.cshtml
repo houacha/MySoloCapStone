@@ -24,23 +24,23 @@
     @if (ViewBag.Liked != null)
     {
         <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up" style="color:blue"></span>
-        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
         <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
-        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
     }
     else if (ViewBag.Dislike != null)
     {
         <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
-        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
         <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down" style="color:blue"></span>
-        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
     }
     else
     {
         <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
-        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: </span>
+        <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
         <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
-        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: </span>
+        <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
     }
 
     <dl class="dl-horizontal">
@@ -160,6 +160,8 @@
     @Html.ActionLink("Back", "ShowCandidate", new { type = "candidate" })
 </p>
 
+
+
 <script>
     function like(id) {
         var candidate;
@@ -197,7 +199,8 @@
                 };
             }
         }
-        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) {}, "json")
+        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) { }, "json")
+        Reload();
     }
 
     function dislike(id) {
@@ -236,21 +239,8 @@
                 };
             }
         }
-        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) {}, "json")
+        $.post("/Clients/CandidatesDetails", candidate, function (data, status, jqXHR) { }, "json")
+        Reload();
     }
 
-
 </script>
-
-@*@section scripts
-    {
-        <script type="text/javascript">
-            $(function () {
-                $('.fa').on("click", function () {
-                    $.post('@Url.Action("CandidatesDetails")').always(function () {
-                        $('.target').load('/Clients/CandidatesDetails');
-                    })
-                });
-            });
-        </script>
-    }*@

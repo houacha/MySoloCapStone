@@ -13,7 +13,7 @@ namespace CapStoneApp.Models
         public int Id { get; set; }
         public string Message { get; set; }
         [ForeignKey("Forum")]
-        public int ForumId { get; set; }
+        public int? ForumId { get; set; }
         public Forum Forum { get; set; }
         [ForeignKey("Client")]
         public int? ClientId { get; set; }

@@ -3,7 +3,7 @@ namespace CapStoneApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class model : DbMigration
+    public partial class models : DbMigration
     {
         public override void Up()
         {
@@ -13,12 +13,17 @@ namespace CapStoneApp.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Party = c.String(),
-                        CandidateId = c.Int(nullable: false),
+                        CandidateId = c.Int(),
+                        DislikeId = c.Int(),
+                        CandidateName = c.String(),
                         ApplicationId = c.String(maxLength: 128),
+                        InboxId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationId)
-                .Index(t => t.ApplicationId);
+                .ForeignKey("dbo.Inboxes", t => t.InboxId, cascadeDelete: true)
+                .Index(t => t.ApplicationId)
+                .Index(t => t.InboxId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -79,17 +84,25 @@ namespace CapStoneApp.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Inboxes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Contents",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Message = c.String(),
-                        ForumId = c.Int(nullable: false),
+                        ForumId = c.Int(),
                         ClientId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Clients", t => t.ClientId)
-                .ForeignKey("dbo.Fora", t => t.ForumId, cascadeDelete: true)
+                .ForeignKey("dbo.Fora", t => t.ForumId)
                 .Index(t => t.ForumId)
                 .Index(t => t.ClientId);
             
@@ -124,6 +137,7 @@ namespace CapStoneApp.Migrations
             DropForeignKey("dbo.Contents", "ForumId", "dbo.Fora");
             DropForeignKey("dbo.Fora", "ClientId", "dbo.Clients");
             DropForeignKey("dbo.Contents", "ClientId", "dbo.Clients");
+            DropForeignKey("dbo.Clients", "InboxId", "dbo.Inboxes");
             DropForeignKey("dbo.Clients", "ApplicationId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -137,10 +151,12 @@ namespace CapStoneApp.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Clients", new[] { "InboxId" });
             DropIndex("dbo.Clients", new[] { "ApplicationId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Fora");
             DropTable("dbo.Contents");
+            DropTable("dbo.Inboxes");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

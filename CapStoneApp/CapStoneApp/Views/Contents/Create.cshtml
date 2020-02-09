@@ -6,7 +6,7 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm("Index", "Contents", new { ForumId = ViewBag.Forum }))
+@using (Html.BeginForm("Index", "Contents", new { ForumId = ViewBag.Forum, IsCreate = "yes" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">

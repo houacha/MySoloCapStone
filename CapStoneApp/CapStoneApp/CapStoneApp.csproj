@@ -190,29 +190,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002010303169_model.cs" />
-    <Compile Include="Migrations\202002010303169_model.Designer.cs">
-      <DependentUpon>202002010303169_model.cs</DependentUpon>
+    <Compile Include="Migrations\202002090213425_models.cs" />
+    <Compile Include="Migrations\202002090213425_models.Designer.cs">
+      <DependentUpon>202002090213425_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002040126327_new model.cs" />
-    <Compile Include="Migrations\202002040126327_new model.Designer.cs">
-      <DependentUpon>202002040126327_new model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002041639143_new things.cs" />
-    <Compile Include="Migrations\202002041639143_new things.Designer.cs">
-      <DependentUpon>202002041639143_new things.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002061431206_new properties on view model.cs" />
-    <Compile Include="Migrations\202002061431206_new properties on view model.Designer.cs">
-      <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002070701015_update props of client.cs" />
-    <Compile Include="Migrations\202002070701015_update props of client.Designer.cs">
-      <DependentUpon>202002070701015_update props of client.cs</DependentUpon>
+    <Compile Include="Migrations\202002090216009_new models.cs" />
+    <Compile Include="Migrations\202002090216009_new models.Designer.cs">
+      <DependentUpon>202002090216009_new models.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiViewModel.cs" />
+    <Compile Include="Models\InboxMessege.cs" />
+    <Compile Include="Models\Inbox.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\Client.cs" />
@@ -293,6 +283,7 @@
     <Content Include="Views\Contents\Create.cshtml" />
     <Content Include="Views\Clients\ShowCandidate.cshtml" />
     <Content Include="Views\Clients\CandidatesDetails.cshtml" />
+    <Content Include="Views\Clients\Inbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,20 +302,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002010303169_model.resx">
-      <DependentUpon>202002010303169_model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002090213425_models.resx">
+      <DependentUpon>202002090213425_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002040126327_new model.resx">
-      <DependentUpon>202002040126327_new model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002041639143_new things.resx">
-      <DependentUpon>202002041639143_new things.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002061431206_new properties on view model.resx">
-      <DependentUpon>202002061431206_new properties on view model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002070701015_update props of client.resx">
-      <DependentUpon>202002070701015_update props of client.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002090216009_new models.resx">
+      <DependentUpon>202002090216009_new models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

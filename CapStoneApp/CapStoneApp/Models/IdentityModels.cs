@@ -31,6 +31,10 @@ namespace CapStoneApp.Models
             return new ApplicationDbContext();
         }
 
+        public DbSet<Inbox> Inboxes { get; set; }
+
+        public DbSet<InboxMessege> InboxMesseges { get; set; }
+
         public System.Data.Entity.DbSet<CapStoneApp.Models.Client> Clients { get; set; }
 
         public System.Data.Entity.DbSet<CapStoneApp.Models.Content> Contents { get; set; }
