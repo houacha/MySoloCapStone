@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CapStoneApp.Models.ApiViewModel>
+
+@{
+    ViewBag.Title = "Vote";
+}
+
+<style>
+    body{
+        background-image:url(../../Content/Participacion-politica-actitud-1024x942.png)
+    }
+</style>
+<div style="background-color:ghostwhite; opacity:.8">
+    <h2 align="center">Vote</h2>
+    <h4 align="center">Make It Count</h4>
+
+    <p align="center">Participate in our site's mock election and be part of change. This mock election can give us and you the user a possible outlook of the real election. Unlike the real election though, this has no REAL effect on the world; but just like the real election please try to take this seriously. Every user only gets one vote so make it count.</p>
+</div>
+@if (ViewBag.Voted == null)
+{
+    <table align="center" style="background-color:ghostwhite; opacity:.85">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Party)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm(new { name = item.Name }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => item.Id)
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Party)
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Vote For Candidate" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <h2>Thank You For Voting.</h2>
+    <h4>Don't forget to vote in real life. Here is how your selected candidate is currently polling.</h4>
+
+
+}

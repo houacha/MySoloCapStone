@@ -1,5 +1,7 @@
 ﻿@model CapStoneApp.Models.Client
-
+@{
+    Layout = "";
+}
 
 @if (ViewBag.Delete == true)
 {
@@ -11,7 +13,7 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Home", "Index", "Home", "", "")
+                @Html.ActionLink("Back", "Details")
             </div>
         }
     </div>

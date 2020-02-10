@@ -28,6 +28,7 @@ namespace CapStone.Migrations
                     Children = "2",
                     Education = "JD, Columbia University School of Law, 1996-1999\nBA, Brown University, 1992-1996",
                     Party = "Democratic",
+                    Polling = 4,
                     Description = "Andrew Yang was born on Jan. 13, 1975 in Schenectady, New York. His parents emigrated from Taiwan in the 1960s. Yang grew up in Westchester County, New York. He enrolled at Brown University " +
                     "majoring in economics and political sciende. In 1996, Yang graduated from Brown and went on to attend Columbia Laaw School, earning his Juris Doctor in 1999. Yang is an author, entrepreneur, philanthopist, and lawyer." +
                     "In 2011, Yang was selected by 'The Obama Administration' as a 'Champion of Change' and as a 'Presidential Ambassador for Global Entrepreneurship' in 2015. Yang's focus largely on responding to the increasing " +
@@ -46,6 +47,7 @@ namespace CapStone.Migrations
                     Children = "4",
                     Education = "Brooklyn College\nBA, University of Chicago",
                     Party = "Independent/Democratic",
+                    Polling = 24,
                     Description = "On September 8, 1941 Bernie Sanders was born to  Elias Ben Yehuda Sanders and  Dorothy Sanders, in Brooklyn, NY. From an early life, Sanders always were interested in politics." +
                     "He attended Brooklyn College then went on to graduate from the University of Chicago. He was an active protest organizer for the Congress of Racial Equality and the Student Nonviolent Coordination Committee." +
                     "In 1981, Sanders was elected mayor of Burlington and was reelected three times after. He won House seat in 1990 representing Vermont's at-large congressional district, serving for 16 years before being elected U.S. Senator." +
@@ -66,6 +68,7 @@ namespace CapStone.Migrations
                     Children = "3",
                     Education = "JD, Yale Law School\nBA, Wesleyan University",
                     Party = "Democratic",
+                    Polling = 1,
                     Description = "Michael Bennet is an American businessman, lawyer, and polition serving as the U.S. Senator. Michael Bennet was born on Nov. 28, 1964 in New Dehli to Susanne Christine and Douglas J. Bennet; the latter " +
                     "serving as the U.S. ambassador of India. His grandfather was an economic adviser in Franklin D. Roosevelt's administration. Bennet earned his B.A. in history from Wesleyan University and continued to earn his J.D. from Yale Law School." +
                     ""
@@ -81,6 +84,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "1",
+                    Polling = 5,
                     Education = "JD, University of Chicago Law School\nBA, Yale University",
                     Party = "Democratic",
                     Description = ""
@@ -96,6 +100,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "2",
+                    Polling = 14,
                     Education = "JD, Rutgers Law School, 1996-1999\nBA, Brown University, 1992-1996",
                     Party = "Democratic",
                     Description = ""
@@ -111,6 +116,7 @@ namespace CapStone.Migrations
                     Religion = "Hinduism",
                     MaritalStatus = "Married",
                     Children = "2",
+                    Polling = 1,
                     Education = "BABS, Hawaii Pacific University",
                     Party = "Democratic",
                     Description = ""
@@ -126,6 +132,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "4",
+                    Polling = 27,
                     Education = "JD, Syracuse University\nBA, University of Delaware",
                     Party = "Democratic/Independent",
                     Description = ""
@@ -141,6 +148,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "2",
+                    Polling = 1,
                     Education = "AB,JD, Harvard University",
                     Party = "Democratic",
                     Description = ""
@@ -156,6 +164,7 @@ namespace CapStone.Migrations
                     Religion = "Jewish",
                     MaritalStatus = "Married",
                     Children = "2",
+                    Polling = 8,
                     Education = "MBA, Harvard University\nBA, Johns Hopkins University",
                     Party = "Democratic",
                     Description = ""
@@ -171,6 +180,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "N/A",
+                    Polling = 7,
                     Education = "AB, Harvard University\nBA, Pembroke College, Oxford",
                     Party = "Democratic",
                     Description = ""
@@ -186,6 +196,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "4",
+                    Polling = 2,
                     Education = "MBA, Standford University\nBA, Yale University",
                     Party = "Democratic",
                     Description = ""
@@ -201,6 +212,7 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "5",
+                    Polling = 0,
                     Education = "BS, Instituto Patria National Autonomous University of Mexico",
                     Party = "Republican",
                     Description = ""
@@ -216,22 +228,8 @@ namespace CapStone.Migrations
                     Religion = "N/A",
                     MaritalStatus = "Married",
                     Children = "5",
+                    Polling = 16,
                     Education = "JD,AB, Harvard University\nUniversity College, Oxford",
-                    Party = "Republican",
-                    Description = ""
-                },
-                new Models.Candidate()
-                {
-                    Name = "William Joesph Walsh",
-                    Gender = "Male",
-                    Occupation = "Conservative talk radio host",
-                    Birthdate = "Dec. 27, 1961",
-                    BirthPlace = "North Barrington, IL",
-                    Hometown = "North Barrington, IL",
-                    Religion = "Christian",
-                    MaritalStatus = "Married",
-                    Children = "5",
-                    Education = "MPP, University of Chicago's Harris School of Public Policy Studies\nBA, University of Iowa",
                     Party = "Republican",
                     Description = ""
                 },
@@ -246,9 +244,110 @@ namespace CapStone.Migrations
                     Religion = "Christian",
                     MaritalStatus = "Married",
                     Children = "5",
+                    Polling = 84,
                     Education = "BA, Wharton School, University of Pennsylvania",
                     Party = "Republican",
                     Description = ""
+                }
+            );
+            context.CampaignStaffs.AddOrUpdate(
+                new Models.CampaignStaff()
+                {
+                    Name = "Zach Graumann",
+                    Position = "Campaign Manager",
+                    Experience = "Co-Founder/CEO of SuitUp Inc",
+                    CandidateId = 1
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Randy Jones",
+                    Position = "Director of Political Affairs/Press Secretary",
+                    Experience = "Political Director of Peoples House Project",
+                    CandidateId = 1
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Madalin Sammons",
+                    Position = "Communications Director",
+                    Experience = "Communications Director for Richard Ojeda's presidential campaign",
+                    CandidateId = 1
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Zach Fang",
+                    Position = "National Organizing Director",
+                    Experience = "National Organizing Director for Tim Ryan's presidential campaign",
+                    CandidateId =1
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Faiz Shakir",
+                    Position = "Campaign Manager",
+                    Experience = "National political director of American Civil Liberties Union",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jeff Weaver",
+                    Position = "Senior Advisor",
+                    Experience = "Campaign manager of Bernie Sanders for President",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Chuck Rocha",
+                    Position = "Senoir Advisor",
+                    Experience = "Advisor of Bernie Sanders for President",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Analilia Mejia",
+                    Position = "Political Director",
+                    Experience = "Director of New Jersey Working Families Alliance",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Claire Sanberg",
+                    Position = "Organizing Director",
+                    Experience = "Deputy campaign manager for Abdul El-Sayed",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Becca Rast",
+                    Position = "National Field Director",
+                    Experience = "Campaign manager of Jess King for Congress",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Rene Spellman",
+                    Position = "Deputy Campaign Manager",
+                    Experience = "Executive of CAA Foundation",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Arianna Jones",
+                    Position = "Deputy Campaign Manager/Communications Director",
+                    Experience = "Senior vice president of PR for Revolution Messaging",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Ari Rabin-Havt",
+                    Position = "Deputy Campaign Manager/Chief of Staff",
+                    Experience = "Deputy chief of staff for Bernie Sanders",
+                    CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Briahna Joy Gray",
+                    Position = "National Press Secretary",
+                    Experience = "Columnist and political editor of 'The Intercept'",
+                    CandidateId = 2
                 }
             );
         }

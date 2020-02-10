@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CapStoneApp.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
         // GET: Role
         ApplicationDbContext context;

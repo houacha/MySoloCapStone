@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CapStoneApp.Controllers
 {
-    public class ContentsController : Controller
+    public class ContentsController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -21,8 +21,9 @@ namespace CapStoneApp.Controllers
             var id = User.Identity.GetUserId();
             var userId = db.Clients.Where(c => c.ApplicationId == id).Select(c => c.Id).SingleOrDefault();
             var contents = db.Contents.Include(c => c.Client).Include(c => c.Forum).Include(f => f.Client.ApplicationUser).Where(c => c.ForumId == forumId).ToList();
+            var forum = db.Fora.Where(f => f.Id == forumId).Select(f => f).SingleOrDefault();
             ViewBag.Forum = forumId;
-            ViewBag.Name = contents.First().Forum.Name;
+            ViewBag.Name = forum.Name;
             ViewBag.UserId = userId;
             if (isTrue != null)
             {

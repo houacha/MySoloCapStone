@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CapStoneApp.Controllers
 {
-    public class usercontrollerController : Controller
+    public class usercontrollerController : BaseController
     {
         // GET: usercontroller
         public ActionResult Index()

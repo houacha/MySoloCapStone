@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace CapStoneApp.Controllers
 {
-    public class ClientsController : Controller
+    public class ClientsController : BaseController
     {
         // GET: Clients
         ApplicationDbContext db;
@@ -28,6 +29,65 @@ namespace CapStoneApp.Controllers
             return View(clients);
         }
 
+        public ActionResult Details(int? id, bool? delete)
+        {
+            Client user = null;
+            var candidates = GetCandidates();
+            if (id == null)
+            {
+                var userId = User.Identity.GetUserId();
+                user = db.Clients.Include(c=>c.ApplicationUser).Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            }
+            else
+            {
+                user = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Select(c => c).SingleOrDefault();
+            }
+            ViewBag.Delete = delete;
+            ViewBag.VoteFor = candidates.Where(c => c.Name == user.CandidateName).Select(c => c).SingleOrDefault();
+            ViewBag.Liked = candidates.Where(c => c.Id == user.CandidateId).Select(c => c).SingleOrDefault();
+            ViewBag.Dislike = candidates.Where(c => c.Id == user.DislikeId).Select(c => c).SingleOrDefault();
+            return View(user);
+        }
+
+        public ActionResult Delete(bool? delete)
+        {
+            ViewBag.Delete = delete;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int? id)
+        {
+            var client = db.Clients.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
+            var user = db.Users.Where(u => u.Id == client.ApplicationId).Select(u => u).SingleOrDefault();
+            var forums = db.Fora.Where(f => f.ClientId == client.Id).Select(f => f).ToList();
+            foreach (var item in forums)
+            {
+                var contents = db.Contents.Where(c => c.ForumId == item.Id).Select(c => c).ToList();
+                List<Client> checkedClient = new List<Client>();
+                foreach (var content in contents)
+                {
+                    var contentclient = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
+                    if (!checkedClient.Contains(contentclient))
+                    {
+                        InboxMessege messege = new InboxMessege();
+                        messege.Messege = "The forum '" + item.Name + "' and all its contents has been deleted.";
+                        messege.InboxId = contentclient.InboxId;
+                        db.InboxMesseges.Add(messege);
+                        checkedClient.Add(contentclient);
+                    }
+                    db.Contents.Remove(content);
+                }
+                db.Fora.Remove(item);
+            }
+            db.Users.Remove(user);
+            db.Clients.Remove(client);
+            db.SaveChanges();
+            return View("Index", "Home");
+        }
+
+        #region Inbox stuff
         public ActionResult Inbox()
         {
             var userId = User.Identity.GetUserId();
@@ -37,7 +97,19 @@ namespace CapStoneApp.Controllers
             return View(messeges);
         }
 
-        public ActionResult ShowCandidate(int? id, string type)
+        public ActionResult MessegeDelete(int? id)
+        {
+            var messege = db.InboxMesseges.Where(m => m.Id == id).Select(m => m).SingleOrDefault();
+            db.InboxMesseges.Remove(messege);
+            db.SaveChanges();
+            return RedirectToAction("Inbox");
+        }
+
+        #endregion
+
+        #region Candidates Stuff
+
+        public ActionResult ShowCandidate(int? id, string type, bool? candidates, string name)
         {
             var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
@@ -46,7 +118,21 @@ namespace CapStoneApp.Controllers
             switch (type)
             {
                 case "candidate":
-                    list = GetCandidates();
+                    if (candidates == true)
+                    {
+                        ViewBag.Candidates = true;
+                        list = GetCandidates();
+                        list = list.Where(c => c.Name.Contains(name)).Select(c => c).ToList();
+                    }
+                    else
+                    {
+                        list = new List<ApiViewModel>();
+                        var candidate = new ApiViewModel()
+                        {
+                            Name = ""
+                        };
+                        list.Add(candidate);
+                    }
                     ViewBag.Like = client.CandidateId;
                     ViewBag.Info = "Candidate";
                     break;
@@ -84,6 +170,49 @@ namespace CapStoneApp.Controllers
                     break;
             }
             return View(list);
+        }
+
+        [HttpPost]
+        public ActionResult ShowCandidate(string name)
+        {
+            var list = ConvertName(name);
+            List<ApiViewModel> candids = null;
+            var candidates = GetCandidates();
+            int candidateId;
+            if ( list.Count > 1)
+            {
+                var first = list[0];
+                var last = list.Last();
+                candidateId = candidates.Where(c => c.Name.Contains(first) && c.Name.Contains(last)).Select(c => c.Id).SingleOrDefault();
+            }
+            else
+            {                
+                candids = candidates.Where(c => c.Name.Contains(list[0])).Select(c => c).ToList();
+                if (candids.Count > 1)
+                {
+                    return RedirectToAction("ShowCandidate", new { type = "candidate", candidates = true, name = list[0] });
+                }
+                else
+                {
+                    candidateId = candidates.Where(c => c.Name.Contains(list[0])).Select(c => c.Id).SingleOrDefault();
+                }
+            }
+            return RedirectToAction("CandidatesDetails", new { id = candidateId});
+        }
+
+        public List<string> ConvertName(string name)
+        {
+            var newName = name.ToLower();
+            var arr = newName.Split(' ');
+            List<string> list = new List<string>();
+            foreach (var item in arr)
+            {
+                var firstLet = item[0].ToString().ToUpper();
+                var removed = item.Remove(0, 1);
+                var newStr = removed.Insert(0, firstLet);
+                list.Add(newStr);
+            }
+            return list;
         }
 
         public ActionResult CandidatesDetails(int? id)
@@ -124,9 +253,92 @@ namespace CapStoneApp.Controllers
             return RedirectToAction("CandidatesDetails", new { id });
         }
 
-        public ActionResult Vote()
+        public ActionResult Compare()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Compare(string name, string name2)
+        {
+            var list = ConvertName(name);
+            var list2 = ConvertName(name2);
+            var candidates = GetCandidates();
+            ApiViewModel person = null;
+            ApiViewModel person2 = null;
+            int candidateId = 0;
+            int candidate2Id = 0;
+            if (list.Count > 1)
+            {
+                var first = list[0];
+                var last = list.Last();
+                candidateId = candidates.Where(c => c.Name.Contains(first) && c.Name.Contains(last)).Select(c => c.Id).SingleOrDefault();
+            }
+            else
+            {
+                var candids = candidates.Where(c => c.Name.Contains(list[0])).Select(c => c).ToList();
+                if (candids.Count > 1)
+                {
+                    person = candids.FirstOrDefault();
+                }
+                else
+                {
+                    candidateId = candidates.Where(c => c.Name.Contains(list[0])).Select(c => c.Id).SingleOrDefault();
+                }
+            }
+            if (list2.Count > 1)
+            {
+                var first = list2[0];
+                var last = list2.Last();
+                candidate2Id = candidates.Where(c => c.Name.Contains(first) && c.Name.Contains(last)).Select(c => c.Id).SingleOrDefault();
+            }
+            else
+            {
+                var candids2 = candidates.Where(c => c.Name.Contains(list2[0])).Select(c => c).ToList();
+                if (candids2.Count > 1)
+                {
+                    person2 = candids2.FirstOrDefault();
+                }
+                else
+                {
+                    candidate2Id = candidates.Where(c => c.Name.Contains(list2[0])).Select(c => c.Id).SingleOrDefault();
+                }
+            }
+            return RedirectToAction("CompCandidates", new { id = candidateId, id2 = candidate2Id});
+        }
+
+        public ActionResult CompCandidates(int? id, int? id2)
+        {
+            var candidates = GetCandidates();
+            List<ApiViewModel> list = new List<ApiViewModel>();
+            var candidate1 = candidates.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
+            var candidate2 = candidates.Where(c => c.Id == id2).Select(c => c).SingleOrDefault();
+            list.Add(candidate1);
+            list.Add(candidate2);
+            ViewBag.Info = "Candidate";
+            return View("ShowCandidate", list);
+        }
+
+        public ActionResult Vote()
+        {
+            var userId = User.Identity.GetUserId();
+            var currentUser = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            if (currentUser.CandidateName != null)
+            {
+                ViewBag.Voted = true;
+            }
+            var list = GetCandidates();
+            return View(list);
+        }
+
+        [HttpPost]
+        public ActionResult Vote(string name)
+        {
+            var userId = User.Identity.GetUserId();
+            var currentUser = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
+            currentUser.CandidateName = name;
+            db.SaveChanges();
+            return RedirectToAction("Vote");
         }
 
         public int FindLikes(int? id)
@@ -147,7 +359,7 @@ namespace CapStoneApp.Controllers
             return percentage;
         }
 
-        public void Like(int? id, string method, string wasTrue) 
+        public void Like(int? id, string method, string wasTrue)
         {
             var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
@@ -190,6 +402,8 @@ namespace CapStoneApp.Controllers
             }
             db.SaveChanges();
         }
+
+        #endregion
 
         #region API Get Methods
         public List<ApiViewModel> GetCandidates()
@@ -387,58 +601,5 @@ namespace CapStoneApp.Controllers
         }
         #endregion
 
-        public ActionResult Details(int? id, bool delete)
-        {
-            Client user = null;
-            if (id == null)
-            {
-                var userId = User.Identity.GetUserId();
-                user = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
-            }
-            else
-            {
-                user = db.Clients.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
-            }
-            ViewBag.Delete = delete;
-            return View(user);
-        }
-
-        public ActionResult Delete(bool delete)
-        {
-            ViewBag.Delete = delete;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int? id)
-        {
-            var client = db.Clients.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
-            var user = db.Users.Where(u => u.Id == client.ApplicationId).Select(u => u).SingleOrDefault();
-            var forums = db.Fora.Where(f => f.ClientId == client.Id).Select(f => f).ToList();
-            foreach (var item in forums)
-            {
-                var contents = db.Contents.Where(c => c.ForumId == item.Id).Select(c => c).ToList();
-                List<Client> checkedClient = new List<Client>();
-                foreach (var content in contents)
-                {
-                    var contentclient = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
-                    if (!checkedClient.Contains(contentclient))
-                    {
-                        InboxMessege messege = new InboxMessege();
-                        messege.Messege = "The forum '" + item.Name + "' and all its contents has been deleted.";
-                        messege.InboxId = contentclient.InboxId;
-                        db.InboxMesseges.Add(messege);
-                        checkedClient.Add(contentclient);
-                    }
-                    db.Contents.Remove(content);
-                }
-                db.Fora.Remove(item);
-            }
-            db.Users.Remove(user);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return View("Index", "Home");
-        }
     }
 }

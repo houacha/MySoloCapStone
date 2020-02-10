@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -30,5 +31,6 @@ namespace CapStoneApp.Models
         public string Experience { get; set; }
         public string WebsiteUrl { get; set; }
         public int? CandidateId { get; set; }
+        public string Name2 { get; set; }
     }
 }

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace CapStoneApp.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -89,7 +89,7 @@ namespace CapStoneApp.Controllers
                         case "Admin":
                             break;
                         case "Client":
-                            break;
+                            return RedirectToAction("Details", "Clients");
                         default:
                             break;
                     }
@@ -180,11 +180,12 @@ namespace CapStoneApp.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     var inbox = new Inbox();
                     context.Inboxes.Add(inbox);
-                    await context.SaveChangesAsync();
-                    var thisInbox = context.Inboxes.Select(i => i).Last();
-                    var client = new Client() { Party = model.Party, ApplicationId = user.Id, InboxId =  thisInbox.Id};
+                    context.SaveChanges();
+                    var thisInbox = context.Inboxes.Select(i => i).ToList();
+                    var inboxId = thisInbox.Last().Id;
+                    var client = new Client() { Party = model.Party, ApplicationId = user.Id, InboxId = inboxId };
                     context.Clients.Add(client);
-                    await context.SaveChangesAsync();
+                    context.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //Ends Here
                     return RedirectToAction("Index", "Home");
@@ -416,7 +417,7 @@ namespace CapStoneApp.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //

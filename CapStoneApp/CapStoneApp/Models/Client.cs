@@ -13,7 +13,9 @@ namespace CapStoneApp.Models
         public int Id { get; set; }
         [Display(Name = "Affiliadated Party")]
         public string Party { get; set; }
+        [Display(Name ="Favored Candidate")]
         public int? CandidateId { get; set; }
+        [Display(Name ="Disliked Candidate")]
         public int? DislikeId { get; set; }
         [Display(Name = "Candidate Voted For")]
         public string CandidateName { get; set; }

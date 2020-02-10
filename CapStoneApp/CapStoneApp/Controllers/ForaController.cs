@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CapStoneApp.Controllers
 {
-    public class ForaController : Controller
+    public class ForaController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
