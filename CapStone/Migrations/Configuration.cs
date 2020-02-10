@@ -348,7 +348,564 @@ namespace CapStone.Migrations
                     Position = "National Press Secretary",
                     Experience = "Columnist and political editor of 'The Intercept'",
                     CandidateId = 2
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Daniel Barash",
+                    Position = "Senior Advisor",
+                    Experience = "Regional political director for expansion districts at the DCCD",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Craig Hughes",
+                    Position = "Senoir Advisor",
+                    Experience = "Partner at Hilltop Public Solutions",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jassica Boad",
+                    Position = "Naational Finance Director",
+                    Experience = "Western regional candidate fundraising director at DCCC",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jill Straus",
+                    Position = "Senior Advisor For Finance",
+                    Experience = "Founder at Straus/Baker",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Tracy Strurman",
+                    Position = "Senior Advisor for Finance",
+                    Experience = "Consultant at Golden State Strategies",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Shannon Beckham",
+                    Position = "Communications Advisor",
+                    Experience = "Communications advisor, office of Senator Michael Bennet",
+                    CandidateId = 3
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Justin Buoen",
+                    Position = "Campaign Manager",
+                    Experience = "Partner, New Partners",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Pete Giangreco",
+                    Position = "Senior Advisor",
+                    Experience = "Partner, The Strategy Group",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Brigit Helgen",
+                    Position = "Senior Advisor",
+                    Experience = "Chief of staff for Amy Klobuchar",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Lucinda Ware",
+                    Position = "Political Director",
+                    Experience = "Vice president/partner SWAY",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Mike McLaughlin",
+                    Position = "Field Director",
+                    Experience = "Campaign manager for Harley Rouda for Congress",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Tim Hogan",
+                    Position = "Communications Director",
+                    Experience = "National press secretary, The Hub Project",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Carlie Waibel",
+                    Position = "National Press Secretary",
+                    Experience = "Senior spokesperson, Andrew Gillum for Governor of Florida",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Michael Schultz",
+                    Position = "National Finance Director",
+                    Experience = "Finance director, Ben Cardin for U.S. Senate",
+                    CandidateId = 4
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Roger Lau",
+                    Position = "Campaign Manager",
+                    Experience = "Campaign Manager for Elizabeth Warren",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Tracey Lewis",
+                    Position = "Senior Advisor for Organizing",
+                    Experience = "Deputy executive director and COO at Democratic Senatorial Campaign Committee",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Hope Hall",
+                    Position = "Senior Advisor for Video and Senior Road Videographer",
+                    Experience = "Cinematographer, filmaker, photographer",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jon Donenberg",
+                    Position = "Senior Advisor and Policy Director",
+                    Experience = "Chief counsel and legislative director of Elizabeth Warren",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kaaren Hinck",
+                    Position = "Senior Advisor for Planning",
+                    Experience = "Scheduler for office of Senate, Sheldon Whitehouse",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Rebecca Pearcey",
+                    Position = "National Political Director",
+                    Experience = "Campaign manager, Ted Ctrickland for U.S. Senate",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kristen Orthman",
+                    Position = "Communications Director",
+                    Experience = "Senior political advisor to Elizabeth Warren",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Gabrielle Farrell",
+                    Position = "Press Secretary",
+                    Experience = "Director of communications for the NHDP",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Richard McDaniel",
+                    Position = "National Organizing Director",
+                    Experience = "Field/political director for Doug Jones for U.S. Senate",
+                    CandidateId = 5
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Erin McCallum",
+                    Position = "Communications consultant",
+                    Experience = "N/A",
+                    CandidateId = 6
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Erika Tsuji",
+                    Position = "Spokeswoman",
+                    Experience = "N/A",
+                    CandidateId = 6
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Greg Schults",
+                    Position = "Campaign Manager",
+                    Experience = "Executive director, American Possibilities PAC",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kate Bedingfield",
+                    Position = "Deputy Campaign Manager and Communications Director",
+                    Experience = "Vice president of communications, Monumental Sports & Entertainment",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Symone Sanders",
+                    Position = "Senior Advisor",
+                    Experience = "Strategist and CNN political commentator",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Cristobal Alex",
+                    Position = "Senior Advisor",
+                    Experience = "President, Latino Victory Project",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Brandon English",
+                    Position = "Senior Advisor",
+                    Experience = "Senior advisor, GPS IMPACT",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Erin Wilson",
+                    Position = "Political Director",
+                    Experience = "State director for Senator Bob Casey",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kurt Bagley",
+                    Position = "National Organizing Director",
+                    Experience = "National field director, Democratic Congressional Campaign Committee",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jamal Brown",
+                    Position = "National Press Secretary",
+                    Experience = "Consultant, Civil Advisors",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "TJ Ducklo",
+                    Position = "National Press Secretary",
+                    Experience = "Senior communications director, NBC News",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Remi Yamamoto",
+                    Position = "Traveling National Press Secretary",
+                    Experience = "Communications director, Fred Hubbell for Governor of Iowa",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Katie Petrelius",
+                    Position = "National Finance Director",
+                    Experience = "Director of development, Biden Foundation",
+                    CandidateId = 7
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kevin Sheekey",
+                    Position = "Campaign Manager",
+                    Experience = "Global head of communications, Bloomberg LP",
+                    CandidateId = 9
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Howard Wolfson",
+                    Position = "Senior Advisor",
+                    Experience = "Senior advisor, Bloomberg Philanthropies",
+                    CandidateId = 9
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jason Schecter",
+                    Position = "Communications Advisor",
+                    Experience = "Chief communications office, Bloomberg LP",
+                    CandidateId = 9
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Mike Schmuhl",
+                    Position = "Campaign Manager",
+                    Experience = "Consultant, Mel Hall for Congress",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Stephen Brokaw",
+                    Position = "National Political Director",
+                    Experience = "Marketing manager, Google",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Greta Carnes",
+                    Position = "National Organizing Director",
+                    Experience = "Texting director, Virginia Democratic Coordinated Campaign",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Lis Smith",
+                    Position = "Communications Director",
+                    Experience = "Deputy campaign manager, Martin O'Malley for President",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Chris Meagher",
+                    Position = "National Press Secretary",
+                    Experience = "Communications director, Montanans for Jon Tester",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Nina Smith",
+                    Position = "Traveling Press Secretary",
+                    Experience = "Managing partner/Co-owner/director of media relations at Megaphone Strategies",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Sonal Shah",
+                    Position = "Policy Director",
+                    Experience = "Executive director, Beeck Center for Social Impact and Innovation",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jess O'Connell",
+                    Position = "Senior Advisor",
+                    Experience = "CEO of Democratic National Committee",
+                    CandidateId = 10
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Heather Hargreaves",
+                    Position = "Campaign Manager",
+                    Experience = "Executive director at NextGenAmerica",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Alberto Lammers",
+                    Position = "National Press Secretary",
+                    Experience = "Deputy director of communications, Need to Impeach",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Tawab Malekzad",
+                    Position = "Research Director",
+                    Experience = "Research director, Need to Impeach",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Cameron Koob",
+                    Position = "Delegate Operations and Ballet Access Manager",
+                    Experience = "Senior research associate, Need to Impeach",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Doug Rubin",
+                    Position = "Senior Advisor",
+                    Experience = "Founding partner, Northwind Strategies",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jerry Govan Jr.",
+                    Position = "Senior Advisor",
+                    Experience = "South Carolina State Representative",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Jenna Narayanan",
+                    Position = "Senior Finance Advisor",
+                    Experience = "Former vice president, NextGenAmerica",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Arnie Sowell",
+                    Position = "Senior Policy Advisor",
+                    Experience = "Executive director, NextGen Policy Center",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Malik Hubbard",
+                    Position = "Political director",
+                    Experience = "National deputy African American vote director, Hilary Clinton for President",
+                    CandidateId = 11
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Stuart Stevens",
+                    Position = "General Consultant",
+                    Experience = "Senior Advisor for Mitt Romney for President",
+                    CandidateId = 13
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Joe Hunter",
+                    Position = "Communications Director",
+                    Experience = "Communications director, Gary Johnson for President",
+                    CandidateId = 13
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Ieva Smidt",
+                    Position = "Finance Director",
+                    Experience = "Fundraising consultant",
+                    CandidateId = 13
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Brad Parscale",
+                    Position = "Campaign Manager",
+                    Experience = "Digital Director for Donald Trump for President",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Lara Trump",
+                    Position = "Senior Advisor",
+                    Experience = "Strategic planning and digital communications coordinator for Donald Trump's campaign committee",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Bob Paduchik",
+                    Position = "Senior Advisor",
+                    Experience = "Co-chair of Republican National Committee",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Katrina Pierson",
+                    Position = "Senior Advisor",
+                    Experience = "National spokeswoman, Donald Trump presidential campaign",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Bill Shine",
+                    Position = "Senior Advisor",
+                    Experience = "White House deputy of chief of staff for communications",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kimberly Guilfoyle",
+                    Position = "Senior Advisor",
+                    Experience = "Vice chairwoman, America First Action",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Chris Carr",
+                    Position = "Political Director",
+                    Experience = "Political director, Republican National Committee",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Tim Murtaugh",
+                    Position = "Director of Communications",
+                    Experience = "Director of Communications, U.S. Department of Agriculture",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {
+                    Name = "Kayleigh McEnany",
+                    Position = "National Press Secretary",
+                    Experience = "Spokesperson, Republican National Committee",
+                    CandidateId = 14
+                },
+                new Models.CampaignStaff()
+                {                    
+                    Name = "Cole Blocker",
+                    Position = "National Finance Director",
+                    Experience = "Deputy director, White House Visitor's Office",
+                    CandidateId = 14
                 }
+            );
+            context.CampaignFinances.AddOrUpdate(
+                new Models.CampaignFinance()
+                {
+                    Amount = 75.308239,
+                    Type = "Individual Contributions",
+                    CandidateId = 14
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 204.187286,
+                    Type = "Total Receipts",
+                    CandidateId = 14
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 109.763185,
+                    Type = "Total Disbursements",
+                    CandidateId = 14
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 102.785704,
+                    Type = "Cash On Hand",
+                    CandidateId = 14
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 1.791341,
+                    Type = "Individual Contributions",
+                    CandidateId = 13
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 1.740043,
+                    Type = "Total Receipts",
+                    CandidateId = 13
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 1.703292,
+                    Type = "Total Disbursements",
+                    CandidateId = 13
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = .036753,
+                    Type = "Cash On Hand",
+                    CandidateId = 13
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = .016835,
+                    Type = "Individual Contributions",
+                    CandidateId = 12
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 13.891835,
+                    Type = "Total Receipts",
+                    CandidateId = 12
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 8.899614,
+                    Type = "Total Disbursements",
+                    CandidateId = 12
+                },
+                new Models.CampaignFinance()
+                {
+                    Amount = 4.994564,
+                    Type = "Cash On Hand",
+                    CandidateId = 12
+                },
             );
         }
     }
