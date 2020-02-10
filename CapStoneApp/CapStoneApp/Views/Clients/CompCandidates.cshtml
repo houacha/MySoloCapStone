@@ -1,0 +1,120 @@
+﻿@model IEnumerable<CapStoneApp.Models.ApiViewModel>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Compare Candidates</h2>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Name")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Birthdate")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Birthdate)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("BirthPlace")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.BirthPlace)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Gender")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Gender)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Occupation")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Occupation)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Hometown")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Hometown)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Religion")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Religion)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("MaritalStatus")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.MaritalStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Children")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Children)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Education")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Education)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Party")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Party)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Polling")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Polling)%
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Description")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Description)
+            </dd>
+
+        </dl>
+    </div>
+}

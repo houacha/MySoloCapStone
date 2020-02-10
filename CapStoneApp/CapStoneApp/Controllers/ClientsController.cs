@@ -315,8 +315,7 @@ namespace CapStoneApp.Controllers
             var candidate2 = candidates.Where(c => c.Id == id2).Select(c => c).SingleOrDefault();
             list.Add(candidate1);
             list.Add(candidate2);
-            ViewBag.Info = "Candidate";
-            return View("ShowCandidate", list);
+            return View(list);
         }
 
         public ActionResult Vote()

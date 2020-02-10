@@ -292,6 +292,7 @@
     <Content Include="Views\Clients\Inbox.cshtml" />
     <Content Include="Views\Clients\Vote.cshtml" />
     <Content Include="Views\Clients\Compare.cshtml" />
+    <Content Include="Views\Clients\CompCandidates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

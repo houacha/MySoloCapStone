@@ -57,6 +57,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>@Html.ActionLink("Election Information", "ShowCandidate", "Clients", new { type = "candidate" }, "")</li>
                                 <li>@Html.ActionLink("Mock Election", "Vote", "Clients")</li>
+                                <li>@Html.ActionLink("Compare Candidates", "Compare", "Clients")</li>
                                 <li class="divider"></li>
                                 <li>
                                     @if (ViewBag.Messeges > 0)
