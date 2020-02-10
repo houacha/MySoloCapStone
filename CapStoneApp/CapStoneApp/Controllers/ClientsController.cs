@@ -353,8 +353,8 @@ namespace CapStoneApp.Controllers
         {
             int percentage;
             var clients = db.Clients.Select(c => c).Count();
-            var likes = db.Clients.Where(c => c.DislikeId == id).Select(c => c).Count();
-            percentage = (likes / clients) * 100;
+            var dislikes = db.Clients.Where(c => c.DislikeId == id).Select(c => c).Count();
+            percentage = (dislikes / clients) * 100;
             return percentage;
         }
 
