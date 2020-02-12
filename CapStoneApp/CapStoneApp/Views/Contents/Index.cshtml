@@ -3,17 +3,12 @@
 @{
     ViewBag.Title = "Index";
 }
-<style>
-    body{
-        background-image:url(../../Content/political-polarization-in-america-1.jpg);
-        background-size:cover;
-    }
-</style>
+
 <h2>@ViewBag.Name</h2>
 
 <form id="contentForm" action="~/Contents/Index" method="post">
 
-    <table class="table" style="background-color:ghostwhite; opacity:.9">
+    <table class="table">
         <tr>
             <th style="width:10%">
                 @Html.DisplayNameFor(model => model.Client.ApplicationUser.UserName)

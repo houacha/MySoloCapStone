@@ -116,6 +116,7 @@ namespace CapStoneApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Content content = db.Contents.Find(id);
+            var forumId = content.ForumId;
             if (content == null)
             {
                 return View(content);
@@ -123,23 +124,26 @@ namespace CapStoneApp.Controllers
             else
             {
                 var forum = db.Fora.Where(f => f.Id == content.ForumId).Select(f => f).SingleOrDefault();
-                db.Contents.Remove(content);
                 var contents = db.Contents.Where(c => c.ForumId == forum.Id).Select(c => c).ToList();
                 List<Client> checkedClient = new List<Client>();
                 foreach (var item in contents)
                 {
                     var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
-                    if (!checkedClient.Contains(client) && client.Id != content.ClientId)
+                    if (client != null)
                     {
-                        InboxMessege messege = new InboxMessege();
-                        messege.Messege = "A message has been deleted from '" + forum.Name + "'.";
-                        messege.InboxId = client.InboxId;
-                        db.InboxMesseges.Add(messege);
-                        checkedClient.Add(client);
+                        if (!checkedClient.Contains(client) && client.Id != content.ClientId)
+                        {
+                            InboxMessege messege = new InboxMessege();
+                            messege.Messege = "A message has been deleted from '" + forum.Name + "'.";
+                            messege.InboxId = client.InboxId;
+                            db.InboxMesseges.Add(messege);
+                            checkedClient.Add(client);
+                        }
                     }
                 }
+                db.Contents.Remove(content);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { forumId = content.ForumId, contentId = content.Id, isTrue });
+                return RedirectToAction("Index", new { forumId, contentId = content.Id, isTrue });
             }
         }
 

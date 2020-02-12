@@ -137,7 +137,7 @@ namespace CapStoneApp.Controllers
             foreach (var item in contents)
             {
                 var client = db.Clients.Where(c => c.Id == item.ClientId).Select(c => c).SingleOrDefault();
-                if (!checkedClient.Contains(client))
+                if (!checkedClient.Contains(client) && client.Id != forum.ClientId)
                 {
                     InboxMessege messege = new InboxMessege();
                     messege.Messege = "The forum '" + forum.Name + "' and all its contents has been deleted.";

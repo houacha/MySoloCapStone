@@ -3,57 +3,61 @@
     ViewBag.Title = "Register";
 }
 
+<div class="col-md-6">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <h3 class="headerText" align="center" style="text-decoration:underline; font-weight:bold">Register An Account</h3>
+        <br />
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <h3 class="headerText" align="center" style="text-decoration:underline; font-weight:bold">Register An Account</h3>
-    <br />
-    <br />
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.Label("Are you a", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Party, new List<SelectListItem> {
+                    new SelectListItem { Text = "Democrat", Value = "Democrat" },
+                    new SelectListItem { Text = "Republican", Value = "Republican" },
+                    new SelectListItem { Text = "Other", Value = "Other" },
+                    new SelectListItem { Text = "Prefered Not To Answer", Value = "Prefered Not To Answer" }
+                }, "--Choose Party Affiliation--")
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Are you a", new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Party, new List<SelectListItem> {
-                new SelectListItem { Text = "Democrat", Value = "Democrat" },
-                new SelectListItem { Text = "Republican", Value = "Republican" },
-                new SelectListItem { Text = "Other", Value = "Other" },
-                new SelectListItem { Text = "Prefered Not To Answer", Value = "Prefered Not To Answer" }
-            }, "--Choose Party Affiliation--")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+    }
+</div>
+<div class="col-md-6">
+    <img src="~/Content/1_QjQbQvhnZS0u_8NdrtBgcg.png" width="400" />
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

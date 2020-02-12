@@ -4,30 +4,22 @@
     ViewBag.Title = "ShowCandidate";
 }
 
-<style>
-    body{
-        background-image:url(../../Content/politics3.jpg);
-        background-size:cover;
-        background-repeat:no-repeat;
-    }
-</style>
-
-<h2>@ViewBag.Info</h2>
+<h2 align="center">@ViewBag.Info</h2>
 
 @if (ViewBag.Info == "Candidate" && ViewBag.Candidates != true)
 {
-    <h4>Search A Candidate By Name:</h4>
+    <h4 align="center">Search A Candidate By Name</h4>
     using (Html.BeginForm())
     {
         <div class="form-group">
-            <div class="col-md-3">
+            <div align="center">
                 @Html.EditorFor(model => model.First().Name, new { htmlAttributes = new { @class = "form-control", @value = " " } })
                 @Html.ValidationMessageFor(model => model.First().Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-6">
+            <div align="center">
                 <input type="submit" value="Search" class="btn btn-default" />
             </div>
         </div>
@@ -37,7 +29,7 @@
 }
 else
 {
-    <table class="table" style="background-color:ghostwhite; opacity:.9">
+    <table class="table">
         @switch (ViewBag.Info)
         {
             case "Candidate":

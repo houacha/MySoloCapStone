@@ -4,19 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<style>
-    body {
-        background-image: url(../../Content/political-polarization-in-america-1.jpg);
-        background-size: cover;
-    }
-</style>
-
 <h2>Forums</h2>
 
-<p align="center">
+<p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table" style="background-color:ghostwhite; opacity:.9">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)

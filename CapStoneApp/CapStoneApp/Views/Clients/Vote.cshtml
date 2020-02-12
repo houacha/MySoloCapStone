@@ -4,20 +4,17 @@
     ViewBag.Title = "Vote";
 }
 
-<style>
-    body{
-        background-image:url(../../Content/Participacion-politica-actitud-1024x942.png)
-    }
-</style>
-<div style="background-color:ghostwhite; opacity:.8">
-    <h2 align="center">Vote</h2>
-    <h4 align="center">Make It Count</h4>
 
-    <p align="center">Participate in our site's mock election and be part of change. This mock election can give us and you the user a possible outlook of the real election. Unlike the real election though, this has no REAL effect on the world; but just like the real election please try to take this seriously. Every user only gets one vote so make it count.</p>
-</div>
 @if (ViewBag.Voted == null)
 {
-    <table align="center" style="background-color:ghostwhite; opacity:.85">
+    <div>
+        <h2 align="center"></h2>
+        <h4 align="center"></h4>
+
+        <p align="center"></p>
+    </div>
+
+    <table align="center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -55,8 +52,46 @@
 }
 else
 {
-    <h2>Thank You For Voting.</h2>
-    <h4>Don't forget to vote in real life. Here is how your selected candidate is currently polling.</h4>
+    <h2 align="center">Thank You For Voting.</h2>
+    <h4 align="center">Don't forget to vote in real life. Here is the current polling of this mock election.</h4>
 
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
+    <script src="~/Scripts/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    theme: "light2",
+                    title: {
+                        text: "Democratic Candidates Polling"
+                    },
+                    data: [
+                        {
+                            type: "pie",
+                            showInLegend: true,
+                            toolTipContent: "#percent %",
+                            legendText: "{indexLabel}",
+                            dataPoints: [
+                                { y: @ViewBag.Yang, indexLabel: "Andrew Yang" },
+                                { y: @ViewBag.Bernie, indexLabel: "Bernie Sanders" },
+                                { y: @ViewBag.Bennet, indexLabel: "Michael Bennet" },
+                                { y: @ViewBag.Amy, indexLabel: "Amy Klobuchar" },
+                                { y: @ViewBag.Liz, indexLabel: "Elizabeth Warren" },
+                                { y: @ViewBag.Tulsi, indexLabel: "Tulsi Gabbard" },
+                                { y: @ViewBag.Joe, indexLabel: "Joe Biden" },
+                                { y: @ViewBag.Deval, indexLabel: "Deval Patrick" },
+                                { y: @ViewBag.Bloom, indexLabel: "Michael Bloomberg" },
+                                { y: @ViewBag.Peter, indexLabel: "Peter Buttigieg" },
+                                { y: @ViewBag.Tom, indexLabel: "Tom Steyer" },
+                                { y: @ViewBag.Rocky, indexLabel: "Rocky De La Fuente" },
+                                { y: @ViewBag.Weld, indexLabel: "William Weld" },
+                                { y: @ViewBag.Trump, indexLabel: "Donald Trump" },
+                            ]
+                        }
+                    ]
+                });
+            chart.render();
+        }
+    </script>
 }

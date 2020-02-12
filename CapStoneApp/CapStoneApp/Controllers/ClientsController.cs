@@ -43,9 +43,31 @@ namespace CapStoneApp.Controllers
                 user = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Select(c => c).SingleOrDefault();
             }
             ViewBag.Delete = delete;
-            ViewBag.VoteFor = candidates.Where(c => c.Name == user.CandidateName).Select(c => c).SingleOrDefault();
-            ViewBag.Liked = candidates.Where(c => c.Id == user.CandidateId).Select(c => c).SingleOrDefault();
-            ViewBag.Dislike = candidates.Where(c => c.Id == user.DislikeId).Select(c => c).SingleOrDefault();
+            var voteFor = candidates.Where(c => c.Name == user.CandidateName).Select(c => c).SingleOrDefault();
+            var like = candidates.Where(c => c.Id == user.CandidateId).Select(c => c).SingleOrDefault();
+            var dislike = candidates.Where(c => c.Id == user.DislikeId).Select(c => c).SingleOrDefault();
+            if (like != null)
+            {
+                ViewBag.Liked = like.Name;
+                if (like.Party == "Democratic" || like.Party == "Independent/Democratic" || like.Party == "Democratic/Independent")
+                {
+                    ViewBag.Dem = "true";
+                    ViewBag.Rep = "false";
+                }
+                else
+                {
+                    ViewBag.Dem = "false";
+                    ViewBag.Rep = "true";
+                }
+            }
+            if (dislike != null)
+            {
+                ViewBag.Dislike = dislike.Name;
+            }
+            if (voteFor != null)
+            {
+                ViewBag.VoteFor = voteFor.Name;
+            }
             return View(user);
         }
 
@@ -324,7 +346,22 @@ namespace CapStoneApp.Controllers
             var currentUser = db.Clients.Where(c => c.ApplicationId == userId).Select(c => c).SingleOrDefault();
             if (currentUser.CandidateName != null)
             {
+                var clients = db.Clients.Select(c => c);
                 ViewBag.Voted = true;
+                ViewBag.Yang = clients.Where(c=>c.CandidateName == "Andrew Yang").Select(c=>c).ToList().Count;
+                ViewBag.Weld = clients.Where(c => c.CandidateName == "William Floyd Weld").Select(c => c).ToList().Count;
+                ViewBag.Trump = clients.Where(c => c.CandidateName == "Donald John Trump").Select(c => c).ToList().Count;
+                ViewBag.Rocky = clients.Where(c => c.CandidateName == "Roque 'Rocky' De La Fuente").Select(c => c).ToList().Count;
+                ViewBag.Tom = clients.Where(c => c.CandidateName == "Thomas Fahr Steyer").Select(c => c).ToList().Count;
+                ViewBag.Peter = clients.Where(c => c.CandidateName == "Peter Paul Montgomery Buttigieg").Select(c => c).ToList().Count;
+                ViewBag.Bloom = clients.Where(c => c.CandidateName == "Michael Rubens Bloomberg").Select(c => c).ToList().Count;
+                ViewBag.Deval = clients.Where(c => c.CandidateName == "Deval Laurdine Patrick").Select(c => c).ToList().Count;
+                ViewBag.Amy = clients.Where(c => c.CandidateName == "Amy Jean Klobuchar").Select(c => c).ToList().Count;
+                ViewBag.Joe = clients.Where(c => c.CandidateName == "Joseph Robinette Biden Jr.").Select(c => c).ToList().Count;
+                ViewBag.Tulsi = clients.Where(c => c.CandidateName == "Tulsi Gabbard").Select(c => c).ToList().Count;
+                ViewBag.Liz = clients.Where(c => c.CandidateName == "Elizabeth Ann Warren").Select(c => c).ToList().Count;
+                ViewBag.Bennet = clients.Where(c => c.CandidateName == "Michael Farrand Bennet").Select(c => c).ToList().Count;
+                ViewBag.Bernie = clients.Where(c => c.CandidateName == "Bernard 'Bernie' Sanders").Select(c => c).ToList().Count;
             }
             var list = GetCandidates();
             return View(list);
@@ -340,21 +377,35 @@ namespace CapStoneApp.Controllers
             return RedirectToAction("Vote");
         }
 
-        public int FindLikes(int? id)
+        public double FindLikes(int? id)
         {
-            int percentage;
-            var clients = db.Clients.Select(c => c).Count();
-            var likes = db.Clients.Where(c => c.CandidateId == id).Select(c => c).Count();
-            percentage = (likes / clients) * 100;
+            double percentage;
+            var clients = db.Clients.Where(c => c.CandidateId == id || c.DislikeId == id).Select(c => c).Count();
+            if (clients < 1)
+            {
+                percentage = 0;
+            }
+            else
+            {
+                var likes = db.Clients.Where(c => c.CandidateId == id).Select(c => c).Count();
+                percentage = (Convert.ToDouble(likes) / Convert.ToDouble(clients)) * 100;
+            }
             return percentage;
         }
 
-        public int FindDislikes(int? id)
+        public double FindDislikes(int? id)
         {
-            int percentage;
-            var clients = db.Clients.Select(c => c).Count();
-            var dislikes = db.Clients.Where(c => c.DislikeId == id).Select(c => c).Count();
-            percentage = (dislikes / clients) * 100;
+            double percentage;
+            var clients = db.Clients.Where(c => c.CandidateId == id || c.DislikeId == id).Select(c => c).Count();
+            if (clients < 1)
+            {
+                percentage = 0;
+            }
+            else
+            {
+                var dislikes = db.Clients.Where(c => c.DislikeId == id).Select(c => c).Count();
+                percentage = (Convert.ToDouble(dislikes) / Convert.ToDouble(clients)) * 100;
+            }
             return percentage;
         }
 
