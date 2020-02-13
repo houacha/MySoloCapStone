@@ -32,5 +32,9 @@ namespace CapStoneApp.Models
         public string WebsiteUrl { get; set; }
         public int? CandidateId { get; set; }
         public string Name2 { get; set; }
+        public string ImgPath { get; set; }
+        public List<ApiViewModel> Policy { get; set; }
+        public List<ApiViewModel> Theme { get; set; }
+
     }
 }

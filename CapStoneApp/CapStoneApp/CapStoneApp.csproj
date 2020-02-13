@@ -191,13 +191,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002090213425_models.cs" />
-    <Compile Include="Migrations\202002090213425_models.Designer.cs">
-      <DependentUpon>202002090213425_models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002090216009_new models.cs" />
-    <Compile Include="Migrations\202002090216009_new models.Designer.cs">
-      <DependentUpon>202002090216009_new models.cs</DependentUpon>
+    <Compile Include="Migrations\202002131026073_models.cs" />
+    <Compile Include="Migrations\202002131026073_models.Designer.cs">
+      <DependentUpon>202002131026073_models.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -214,10 +210,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\1_QjQbQvhnZS0u_8NdrtBgcg.png" />
+    <Content Include="Content\amy.jpg" />
+    <Content Include="Content\biden.jpg" />
+    <Content Include="Content\bloomberg.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\deval.jpg" />
+    <Content Include="Content\Michael_Bennet.jpg" />
+    <Content Include="Content\Pete_Buttigieg.jpg" />
+    <Content Include="Content\rocky.jpg" />
+    <Content Include="Content\sanders.jpg" />
+    <Content Include="Content\Tom_Steyer.jpg" />
+    <Content Include="Content\trump.jpg" />
+    <Content Include="Content\tulsi.jpg" />
+    <Content Include="Content\usa-american-flag-paintbrush-white-background_46250-2128.jpg" />
+    <Content Include="Content\warren.jpg" />
+    <Content Include="Content\Weld.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -307,11 +317,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002090213425_models.resx">
-      <DependentUpon>202002090213425_models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002090216009_new models.resx">
-      <DependentUpon>202002090216009_new models.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002131026073_models.resx">
+      <DependentUpon>202002131026073_models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

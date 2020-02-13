@@ -9,83 +9,107 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @if (User.IsInRole("Client") == true)
-                {
-                    @Html.ActionLink("E-Lection +", "Details", "Clients", new { area = "" }, new { @class = "navbar-brand" })
-                }
-                else
-                {
-                    @Html.ActionLink("E-Lection +", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
-                }
-            </div>
+    <div class="background">
+        <div class="content">
+            <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:.95">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @if (User.IsInRole("Client") == true)
+                        {
+                            @Html.ActionLink("E-Lection +", "Details", "Clients", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("E-Lection +", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                    </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">General Information <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">General Information <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @if (User.IsInRole("Client") == true)
+                                    {
+                                        <li>@Html.ActionLink("Home", "Details", "Clients")</li>
+                                    }
+                                    else if (User.IsInRole("Admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Home", "Index", "usercontroller")</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Home", "Login", "Account")</li>
+                                    }
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                </ul>
+                            </li>
                             @if (User.IsInRole("Client") == true)
                             {
-                                <li>@Html.ActionLink("Home", "Details", "Clients")</li>
-                            }
-                            else if (User.IsInRole("Admin") == true)
-                            {
-                                <li>@Html.ActionLink("Home", "Index", "usercontroller")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Home", "Login", "Account")</li>
-                            }
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </li>
-                    @if (User.IsInRole("Client") == true)
-                    {
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Elections/Forums <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>@Html.ActionLink("Election Information", "ShowCandidate", "Clients", new { type = "candidate" }, "")</li>
-                                <li>@Html.ActionLink("Mock Election", "Vote", "Clients")</li>
-                                <li>@Html.ActionLink("Compare Candidates", "Compare", "Clients")</li>
-                                <li class="divider"></li>
-                                <li>
-                                    @if (ViewBag.Messeges > 0)
-                                    {
-                                        <i class="fa fa-bell" style="color:crimson"></i>
-                                    }
-                                    @Html.ActionLink("Inbox", "Inbox", "Clients")
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Elections/Forums <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Election Information", "ShowCandidate", "Clients", new { type = "candidate" }, "")</li>
+                                        <li>@Html.ActionLink("Mock Election", "Vote", "Clients")</li>
+                                        <li>@Html.ActionLink("Compare Candidates", "Compare", "Clients")</li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            @if (ViewBag.Messeges > 0)
+                                            {
+                                                <i class="fa fa-bell" style="color:crimson"></i>
+                                            }
+                                            @Html.ActionLink("Inbox", "Inbox", "Clients")
+                                        </li>
+                                        <li>@Html.ActionLink("Forums", "Index", "Fora")</li>
+                                    </ul>
                                 </li>
-                                <li>@Html.ActionLink("Forums", "Index", "Fora")</li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+                            }
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - E-Lection Plus LLC.</p>
-        </footer>
-    </div>
+            <div class="container body-content">
+                @RenderBody()
+            </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/canvas")
-    @RenderSection("scripts", required: false)
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @Scripts.Render("~/bundles/canvas")
+            @RenderSection("scripts", required: false)
+        </div>
+
+        <style>
+            .background {
+                position: relative;
+            }
+
+                .background:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 1;
+                    background-image: url(../../Content/usa-american-flag-paintbrush-white-background_46250-2128.jpg);
+                    opacity: 0.1;
+                    background-size: cover;
+                }
+
+            .content {
+                position: relative;
+                z-index: 2;
+            }
+        </style>
+    </div>
 </body>
 </html>

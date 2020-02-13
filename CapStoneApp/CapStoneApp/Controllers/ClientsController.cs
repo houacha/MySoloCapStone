@@ -337,9 +337,19 @@ namespace CapStoneApp.Controllers
         public ActionResult CompCandidates(int? id, int? id2)
         {
             var candidates = GetCandidates();
+            var policies = GetPolicies();
+            var themes = GetCampaignTheme();
             List<ApiViewModel> list = new List<ApiViewModel>();
             var candidate1 = candidates.Where(c => c.Id == id).Select(c => c).SingleOrDefault();
             var candidate2 = candidates.Where(c => c.Id == id2).Select(c => c).SingleOrDefault();
+            var themes1 = themes.Where(t => t.CandidateId == candidate1.Id).ToList();
+            var themes2 = themes.Where(t => t.CandidateId == candidate2.Id).ToList();
+            var policy1 = policies.Where(p => p.CandidateId == candidate1.Id).ToList();
+            var policy2 = policies.Where(p => p.CandidateId == candidate2.Id).ToList();
+            candidate1.Theme = themes1;
+            candidate1.Policy = policy1;
+            candidate2.Theme = themes2;
+            candidate2.Policy = policy2;
             list.Add(candidate1);
             list.Add(candidate2);
             return View(list);
@@ -489,6 +499,7 @@ namespace CapStoneApp.Controllers
                         Children = (string)item["Children"],
                         Education = (string)item["Education"],
                         Polling = (double?)item["Polling"],
+                        ImgPath = (string)item["ImgPath"],
                         Party = (string)item["Party"]
                     };
                     candidates.Add(candidate);
@@ -539,10 +550,8 @@ namespace CapStoneApp.Controllers
                     var theme = new ApiViewModel()
                     {
                         Id = (int)item["Id"],
-                        Name = (string)item["Issue"],
-                        Position = (string)item["Stance"],
-                        Location = (string)item["Location"],
-                        Party = (string)item["Party"],
+                        Issue = (string)item["Issue"],
+                        Stance = (string)item["Stance"],
                         CandidateId = (int?)item["CandidateId"]
                     };
                     themes.Add(theme);

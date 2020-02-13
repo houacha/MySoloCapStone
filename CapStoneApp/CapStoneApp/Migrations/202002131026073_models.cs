@@ -120,6 +120,18 @@ namespace CapStoneApp.Migrations
                 .Index(t => t.ClientId);
             
             CreateTable(
+                "dbo.InboxMesseges",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Messege = c.String(),
+                        InboxId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Inboxes", t => t.InboxId, cascadeDelete: true)
+                .Index(t => t.InboxId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -134,6 +146,7 @@ namespace CapStoneApp.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.InboxMesseges", "InboxId", "dbo.Inboxes");
             DropForeignKey("dbo.Contents", "ForumId", "dbo.Fora");
             DropForeignKey("dbo.Fora", "ClientId", "dbo.Clients");
             DropForeignKey("dbo.Contents", "ClientId", "dbo.Clients");
@@ -143,6 +156,7 @@ namespace CapStoneApp.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.InboxMesseges", new[] { "InboxId" });
             DropIndex("dbo.Fora", new[] { "ClientId" });
             DropIndex("dbo.Contents", new[] { "ClientId" });
             DropIndex("dbo.Contents", new[] { "ForumId" });
@@ -154,6 +168,7 @@ namespace CapStoneApp.Migrations
             DropIndex("dbo.Clients", new[] { "InboxId" });
             DropIndex("dbo.Clients", new[] { "ApplicationId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.InboxMesseges");
             DropTable("dbo.Fora");
             DropTable("dbo.Contents");
             DropTable("dbo.Inboxes");

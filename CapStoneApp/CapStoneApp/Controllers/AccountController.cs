@@ -188,7 +188,7 @@ namespace CapStoneApp.Controllers
                     context.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //Ends Here
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Details", "Clients");
                 }
                 AddErrors(result);
             }

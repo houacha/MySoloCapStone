@@ -4,7 +4,6 @@
     ViewBag.Title = "Vote";
 }
 
-
 @if (ViewBag.Voted == null)
 {
     <div>
@@ -55,7 +54,7 @@ else
     <h2 align="center">Thank You For Voting.</h2>
     <h4 align="center">Don't forget to vote in real life. Here is the current polling of this mock election.</h4>
 
-    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <div id="chartContainer" style="height: 300px; width: 100%; opacity:.8"></div>
 
     <script src="~/Scripts/canvasjs.min.js"></script>
     <script type="text/javascript">

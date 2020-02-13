@@ -225,9 +225,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002101430488_models.cs" />
-    <Compile Include="Migrations\202002101430488_models.Designer.cs">
-      <DependentUpon>202002101430488_models.cs</DependentUpon>
+    <Compile Include="Migrations\202002131105112_model.cs" />
+    <Compile Include="Migrations\202002131105112_model.Designer.cs">
+      <DependentUpon>202002131105112_model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -337,8 +337,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002101430488_models.resx">
-      <DependentUpon>202002101430488_models.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002131105112_model.resx">
+      <DependentUpon>202002131105112_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

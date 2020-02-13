@@ -11,7 +11,7 @@ namespace CapStoneApp.Models
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Affiliadated Party")]
+        [Display(Name = "Affiliated Party")]
         public string Party { get; set; }
         [Display(Name ="Favored Candidate")]
         public int? CandidateId { get; set; }

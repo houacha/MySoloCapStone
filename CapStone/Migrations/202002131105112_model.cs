@@ -3,7 +3,7 @@ namespace CapStone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class models : DbMigration
+    public partial class model : DbMigration
     {
         public override void Up()
         {
@@ -37,6 +37,7 @@ namespace CapStone.Migrations
                         Education = c.String(),
                         Polling = c.Double(nullable: false),
                         Party = c.String(),
+                        ImgPath = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             

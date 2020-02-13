@@ -118,3 +118,40 @@
     </div>
 }
 
+<h3>Campaign Themes</h3>
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <hr />
+        @foreach (var theme in item.Theme)
+        {
+            <dl class="dl-horizontal">
+                <dd>
+                    @Html.DisplayFor(model => theme.Issue)
+                </dd>
+                <dd>
+                    @Html.DisplayFor(model => theme.Stance)
+                </dd>
+            </dl>
+        }
+    </div>
+}
+
+<h3>Campaign Policies</h3>
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <hr />
+        @foreach (var policy in item.Policy)
+        {
+            <dl class="dl-horizontal">
+                <dd>
+                    @Html.DisplayFor(model => policy.Issue)
+                </dd>
+                <dd>
+                    @Html.DisplayFor(model => policy.Stance)
+                </dd>
+            </dl>
+        }
+    </div>
+}

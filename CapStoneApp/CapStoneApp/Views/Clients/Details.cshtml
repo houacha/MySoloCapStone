@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Personal Information</h2>
 
 <div>
-    <h4>Client</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -68,7 +67,7 @@
     }
 </p>
 
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer" style="height: 300px; width: 100%; opacity:.8"></div>
 
 <script src="~/Scripts/canvasjs.min.js"></script>
 <script type="text/javascript">
@@ -87,17 +86,15 @@
                             toolTipContent: "#percent %",
                             legendText: "{indexLabel}",
                             dataPoints: [
-                                { y: 4, indexLabel: "Andrew Yang" },
-                                { y: 24, indexLabel: "Bernie Sanders" },
-                                { y: 1, indexLabel: "Michael Bennet" },
-                                { y: 5, indexLabel: "Amy Klobuchar" },
-                                { y: 14, indexLabel: "Elizabeth Warren" },
-                                { y: 1, indexLabel: "Tulsi Gabbard" },
-                                { y: 27, indexLabel: "Joe Biden" },
-                                { y: 1, indexLabel: "Deval Patrick" },
-                                { y: 8, indexLabel: "Michael Bloomberg" },
-                                { y: 7, indexLabel: "Peter Buttigieg" },
-                                { y: 2, indexLabel: "Tom Steyer" },
+                                { y: 23.6, indexLabel: "Bernie Sanders" },
+                                { y: 4.6, indexLabel: "Amy Klobuchar" },
+                                { y: 12.4, indexLabel: "Elizabeth Warren" },
+                                { y: 1.6, indexLabel: "Tulsi Gabbard" },
+                                { y: 19.2, indexLabel: "Joe Biden" },
+                                { y: 14.2, indexLabel: "Michael Bloomberg" },
+                                { y: 10.6, indexLabel: "Peter Buttigieg" },
+                                { y: 1.8, indexLabel: "Tom Steyer" },
+                                { y: 12, indexLabel: "Excess Data" },
                             ]
                         }
                     ]
@@ -120,15 +117,15 @@
                             toolTipContent: "#percent %",
                             legendText: "{indexLabel}",
                             dataPoints: [
-                                { y: 84, indexLabel: "Donald Trump" },
+                                { y: 90, indexLabel: "Donald Trump" },
                                 { y: 0, indexLabel: "Rocky De La Fuente" },
-                                { y: 16, indexLabel: "William Weld" },
+                                { y: 10, indexLabel: "William Weld" },
                             ]
                         }
                     ]
                 });
             chart.render();
         }
-    }  
+    }
 </script>
 

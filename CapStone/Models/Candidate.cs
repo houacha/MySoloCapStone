@@ -23,5 +23,6 @@ namespace CapStone.Models
         public string Education { get; set; }
         public double Polling { get; set; }
         public string Party { get; set; }
+        public string ImgPath { get; set; }
     }
 }

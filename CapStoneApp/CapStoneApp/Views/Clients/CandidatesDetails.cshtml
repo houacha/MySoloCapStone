@@ -20,148 +20,148 @@
 
     <h2>Personal Details</h2>
 
-    <div>
-        <h4>@Model.Name</h4>
-        <hr />
-        @if (ViewBag.Liked != null)
-        {
-            <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up" style="color:blue"></span>
-            <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
-            <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
-            <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
-        }
-        else if (ViewBag.Dislike != null)
-        {
-            <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
-            <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
-            <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down" style="color:blue"></span>
-            <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
-        }
-        else
-        {
-            <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
-            <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
-            <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
-            <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
-        }
+    <div class="col-md-7">
+        <div>
+            <h4>@Model.Name</h4>
+            <hr />
+            @if (ViewBag.Liked != null)
+            {
+                <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up" style="color:blue"></span>
+                <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
+                <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
+                <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
+            }
+            else if (ViewBag.Dislike != null)
+            {
+                <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
+                <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
+                <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down" style="color:blue"></span>
+                <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
+            }
+            else
+            {
+                <span onclick="like(@Model.Id)" class="fa fa-thumbs-o-up" id="up"></span>
+                <span id="likes" style="width:10%; background-color:lightgray; user-select:none">Likes: @ViewBag.Likes%</span>
+                <span onclick="dislike(@Model.Id)" class="fa fa-thumbs-o-down" id="down"></span>
+                <span id="dislikes" style="width:10%; background-color:lightgray; user-select:none">Dislikes: @ViewBag.Dislikes%</span>
+            }
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Birthdate)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Birthdate)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Birthdate)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Birthdate)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BirthPlace)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BirthPlace)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BirthPlace)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.BirthPlace)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Gender)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Gender)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Occupation)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Occupation)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Occupation)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Occupation)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Hometown)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hometown)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hometown)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Hometown)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Religion)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Religion)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Religion)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Religion)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.MaritalStatus)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MaritalStatus)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.MaritalStatus)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.MaritalStatus)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Children)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Children)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Children)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Children)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Education)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Education)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Education)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Education)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Party)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Party)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Party)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Party)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Polling)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Polling)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Polling)%
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Polling)%
+                </dd>
+            </dl>
+        </div>
+        <h3 align="center">@Html.DisplayNameFor(model => model.Description)</h3>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-        </dl>
+        <p style="text-indent:50px">@Html.DisplayFor(model => model.Description)</p>
+        <br />
+        <br />
+        <p>
+            @Html.ActionLink("Policies", "ShowCandidate", new { id = Model.Id, type = "policy" }) |
+            @Html.ActionLink("Campaign Theme", "ShowCandidate", new { id = Model.Id, type = "theme" }) |
+            @Html.ActionLink("Endorsements", "ShowCandidate", new { id = Model.Id, type = "endorsement" }) |
+            @Html.ActionLink("Campaign Staffs", "ShowCandidate", new { id = Model.Id, type = "staff" }) |
+            @Html.ActionLink("Finances", "ShowCandidate", new { id = Model.Id, type = "finance" }) |
+            @Html.ActionLink("Campaign Ads", "ShowCandidate", new { id = Model.Id, type = "ad" }) |
+            @Html.ActionLink("Back", "ShowCandidate", new { type = "candidate" })
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("Policies", "ShowCandidate", new { id = Model.Id, type = "policy" }) |
-        @Html.ActionLink("Campaign Theme", "ShowCandidate", new { id = Model.Id, type = "theme" }) |
-        @Html.ActionLink("Endorsements", "ShowCandidate", new { id = Model.Id, type = "endorsement" }) |
-        @Html.ActionLink("Campaign Staffs", "ShowCandidate", new { id = Model.Id, type = "staff" }) |
-        @Html.ActionLink("Finances", "ShowCandidate", new { id = Model.Id, type = "finance" }) |
-        @Html.ActionLink("Campaign Ads", "ShowCandidate", new { id = Model.Id, type = "ad" }) |
-        @Html.ActionLink("Back", "ShowCandidate", new { type = "candidate" })
-    </p>
-
+    <div class="col-md-5" >
+        <img src="@Model.ImgPath" style="width:350px; margin-top:60px"/>
+    </div>
     <script>
     function like(id) {
         var candidate;
