@@ -255,6 +255,11 @@ namespace CapStoneApp.Controllers
             ViewBag.Dislikes = FindDislikes(id);
             list = GetCandidates();
             api = list.Where(c => c.Id == id).SingleOrDefault();
+            if (api == null)
+            {
+                api = new ApiViewModel();
+                ViewBag.NoSearch = true;
+            }
             return View(api);
         }
 

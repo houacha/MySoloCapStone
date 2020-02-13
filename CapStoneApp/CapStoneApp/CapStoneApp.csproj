@@ -218,11 +218,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\forms-of-politics_orig.jpg" />
-    <Content Include="Content\Participacion-politica-actitud-1024x942.png" />
-    <Content Include="Content\political-change-definition-and-explanation_107685.jpg" />
-    <Content Include="Content\political-polarization-in-america-1.jpg" />
-    <Content Include="Content\politics3.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
